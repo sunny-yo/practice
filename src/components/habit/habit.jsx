@@ -21,11 +21,12 @@ class Habit extends Component {
   };
 
   render() {
+    const { name, count } = this.props.habit;
     return (
       <li className={styles.habit}>
         <div className={styles.info}>
-          <span className={styles.name}>{this.props.habit.name}</span>
-          <span className={styles.count}>{this.props.habit.count}</span>
+          <span className={styles.name}>{name}</span>
+          <span className={styles.count}>{count}</span>
         </div>
         <div className={styles.button}>
           <button className={styles.plus} onClick={this.handleIncreament}>

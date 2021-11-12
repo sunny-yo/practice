@@ -14,18 +14,18 @@ class Habits extends Component {
     };
   }
 
-  onIncrement = (item) => {
+  handleIncrement = (item) => {
     const habits = [...this.state.habits];
     habits.map((habit) => habit.name === item.name && habit.count++);
     this.setState({ habits });
   };
-  onDecrement = (item) => {
+  handleDecrement = (item) => {
     const count = item.count - 1 < 0 ? 0 : item.count--;
     const habits = [...this.state.habits];
     habits.map((habit) => habit.name === item.name && count);
     this.setState({ habits });
   };
-  onDelete = (item) => {
+  handleDelete = (item) => {
     const habits = [...this.state.habits].filter(
       (habit) => habit.name !== item.name
     );
@@ -37,10 +37,11 @@ class Habits extends Component {
       <ul className={styles.habits}>
         {this.state.habits.map((habit) => (
           <Habit
+            key={habit.id}
             habit={habit}
-            onIncrement={this.onIncrement}
-            onDecrement={this.onDecrement}
-            onDelete={this.onDelete}
+            onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
+            onDelete={this.handleDelete}
           />
         ))}
       </ul>
