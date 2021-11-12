@@ -28,13 +28,11 @@
 .minus {
   font-size: 2rem;
   color: rgb(221, 181, 51);
-  cursor: pointer;
   transition: transform 150ms ease-in;
 }
 
 .trash {
   font-size: 2rem;
-  cursor: pointer;
   transition: transform 150ms ease-in;
   color: rgb(184, 25, 25);
 }

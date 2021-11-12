@@ -5,13 +5,12 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 class Navbar extends Component {
   render() {
-    const count = this.props.habits.filter((habit) => habit.count > 1);
     return (
-      <div className={styles.container}>
+      <nav className={styles.container}>
         <FontAwesomeIcon icon={faCheck} className={styles.icon} />
         <span className={styles.title}>Habit Tracker</span>
-        <span className={styles.count}>{count.length}</span>
-      </div>
+        <span className={styles.count}>{this.props.totalCount}</span>
+      </nav>
     );
   }
 }
