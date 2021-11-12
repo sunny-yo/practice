@@ -1,0 +1,25 @@
+.container {
+  font-size: 2rem;
+  padding: 1rem;
+  background-color: rgb(211, 176, 131);
+}
+
+.icon {
+  color: green;
+  margin-right: 0.2em;
+}
+
+.title {
+  margin-right: 0.5em;
+}
+
+.count {
+  display: inline-block;
+  text-align: center;
+  line-height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: green;
+  color: aliceblue;
+}

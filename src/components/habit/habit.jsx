@@ -22,6 +22,7 @@ class Habit extends Component {
 
   render() {
     const { name, count } = this.props.habit;
+
     return (
       <li className={styles.habit}>
         <div className={styles.info}>
