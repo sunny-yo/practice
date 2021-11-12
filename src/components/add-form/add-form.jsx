@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styles from "./add-form.module.css";
 
-class AddForm extends Component {
+class AddForm extends PureComponent {
   inputRef = React.createRef();
 
   onSubmit = (e) => {
     e.preventDefault();
     const name = this.inputRef.current.value;
-    this.props.onAdd(name);
+    name && this.props.onAdd(name);
     this.inputRef.current.value = "";
   };
 

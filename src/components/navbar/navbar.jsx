@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import styles from "./navbar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-class Navbar extends Component {
+class Navbar extends PureComponent {
   render() {
     return (
       <nav className={styles.container}>

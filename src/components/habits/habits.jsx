@@ -6,9 +6,9 @@ import AddForm from "../add-form/add-form";
 class Habits extends Component {
   render() {
     return (
-      <>
+      <div className={styles.habits}>
         <AddForm onAdd={this.props.onAdd} />
-        <ul className={styles.habits}>
+        <ul>
           {this.props.habits.map((habit) => (
             <Habit
               key={habit.id}
@@ -22,7 +22,7 @@ class Habits extends Component {
         <button className={styles.resetBtn} onClick={this.props.onReset}>
           Reset All
         </button>
-      </>
+      </div>
     );
   }
 }
