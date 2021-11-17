@@ -1,33 +1,31 @@
-import React, { PureComponent } from "react";
+import React, { memo, useRef } from "react";
 import styles from "./add-form.module.css";
 
-class AddForm extends PureComponent {
-  inputRef = React.createRef();
+const AddForm = memo((props) => {
+  const inputRef = useRef();
 
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    const name = this.inputRef.current.value;
-    name && this.props.onAdd(name);
-    this.inputRef.current.value = "";
+    const name = inputRef.current.value;
+    name && props.onAdd(name);
+    inputRef.current.value = "";
   };
 
-  render() {
-    return (
-      <>
-        <form className={styles.form} onSubmit={this.onSubmit}>
-          <input
-            className={styles.input}
-            ref={this.inputRef}
-            type="text"
-            placeholder="Habit"
-          />
-          <button className={styles.button} type="submit">
-            Add
-          </button>
-        </form>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <form className={styles.form} onSubmit={onSubmit}>
+        <input
+          className={styles.input}
+          ref={inputRef}
+          type="text"
+          placeholder="Habit"
+        />
+        <button className={styles.button} type="submit">
+          Add
+        </button>
+      </form>
+    </>
+  );
+});
 
 export default AddForm;
