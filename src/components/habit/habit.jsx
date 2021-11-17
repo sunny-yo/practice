@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { memo } from "react";
 import styles from "./habit.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,42 +7,39 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 
-class Habit extends PureComponent {
-  handleIncreament = () => {
-    this.props.onIncrement(this.props.habit);
+const Habit = memo((props) => {
+  const handleIncreament = () => {
+    props.onIncrement(props.habit);
   };
 
-  handleDecreament = () => {
-    this.props.onDecrement(this.props.habit);
+  const handleDecreament = () => {
+    props.onDecrement(props.habit);
   };
 
-  handleDelete = () => {
-    this.props.onDelete(this.props.habit);
+  const handleDelete = () => {
+    props.onDelete(props.habit);
   };
 
-  render() {
-    const { name, count } = this.props.habit;
-
-    return (
-      <li className={styles.habit}>
-        <div className={styles.info}>
-          <span className={styles.name}>{name}</span>
-          <span className={styles.count}>{count}</span>
-        </div>
-        <div className={styles.button}>
-          <button className={styles.plus} onClick={this.handleIncreament}>
-            <FontAwesomeIcon icon={faPlusSquare} />
-          </button>
-          <button className={styles.minus} onClick={this.handleDecreament}>
-            <FontAwesomeIcon icon={faMinusSquare} />
-          </button>
-          <button className={styles.trash} onClick={this.handleDelete}>
-            <FontAwesomeIcon icon={faTrash} />
-          </button>
-        </div>
-      </li>
-    );
-  }
-}
+  const { name, count } = props.habit;
+  return (
+    <li className={styles.habit}>
+      <div className={styles.info}>
+        <span className={styles.name}>{name}</span>
+        <span className={styles.count}>{count}</span>
+      </div>
+      <div className={styles.button}>
+        <button className={styles.plus} onClick={handleIncreament}>
+          <FontAwesomeIcon icon={faPlusSquare} />
+        </button>
+        <button className={styles.minus} onClick={handleDecreament}>
+          <FontAwesomeIcon icon={faMinusSquare} />
+        </button>
+        <button className={styles.trash} onClick={handleDelete}>
+          <FontAwesomeIcon icon={faTrash} />
+        </button>
+      </div>
+    </li>
+  );
+});
 
 export default Habit;
