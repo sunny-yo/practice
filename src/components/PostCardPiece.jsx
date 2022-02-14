@@ -4,10 +4,10 @@ import styled from 'styled-components';
 const PostCardPiece = (props) => {
   const { title, content } = props;
   return (
-    <>
+    <PieceBox>
       <Label htmlFor={title}>{title}</Label>
       <Content>{content}</Content>
-    </>
+    </PieceBox>
   );
 };
 
@@ -15,6 +15,10 @@ PostCardPiece.defaultProps = {
   title: 'title',
   content: 'content',
 };
+
+const PieceBox = styled.div`
+  padding: 0.2em;
+`;
 
 const Label = styled.label`
   font-size: 0.7rem;

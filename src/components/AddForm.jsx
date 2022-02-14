@@ -1,14 +1,25 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { createWord, updateWord } from '../redux/modules/words';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const AddForm = (props) => {
+const AddForm = ({ post }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const wordRef = useRef();
   const descRef = useRef();
   const exRef = useRef();
 
-  const goToPostList = (e) => {
+  useEffect(() => {
+    if (post.state) {
+      wordRef.current.value = post.state.word;
+      descRef.current.value = post.state.desc;
+      exRef.current.value = post.state.ex;
+    }
+  }, []);
+
+  const goToPostList = async (e) => {
     e.preventDefault();
     const word = wordRef.current.value;
     const desc = descRef.current.value;
@@ -18,6 +29,17 @@ const AddForm = (props) => {
       alert('모든 입력은 필수입니다');
       return;
     }
+
+    post.state
+      ? dispatch(updateWord({ ...post.state, word: word, desc: desc, ex: ex }))
+      : dispatch(
+          createWord({
+            id: new Date().getTime(),
+            word: word,
+            desc: desc,
+            ex: ex,
+          })
+        );
 
     navigate('/');
   };
@@ -36,7 +58,7 @@ const AddForm = (props) => {
         <Label htmlFor="예시">예시</Label>
         <Input ref={exRef} type="text" />
       </PieceBox>
-      <AddBtn>추가하기</AddBtn>
+      <AddBtn>{post.state ? '수정하기' : '추가하기'}</AddBtn>
     </form>
   );
 };

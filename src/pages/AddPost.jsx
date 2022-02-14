@@ -1,12 +1,15 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import AddForm from '../components/AddForm';
 
 const AddPost = (props) => {
+  const location = useLocation();
+  console.log(location);
   return (
     <AddPostBox>
       <Header>단어 추가하기</Header>
-      <AddForm />
+      <AddForm post={location} />
     </AddPostBox>
   );
 };

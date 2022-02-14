@@ -8,7 +8,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PostList />} />
-        <Route path="create" element={<AddPost />} />
+        <Route path="/create" element={<AddPost />} />
+        <Route path="/update/:postid" element={<AddPost />} />
       </Routes>
     </BrowserRouter>
   );
