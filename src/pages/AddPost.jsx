@@ -1,20 +1,29 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import AddForm from '../components/AddForm';
 
 const AddPost = (props) => {
-  const navigate = useNavigate();
-
-  const goToPostList = () => {
-    navigate('/');
-  };
-
   return (
-    <>
-      <header>단어 추가하기</header>
-      <div>form</div>
-      <button onClick={goToPostList}>추가하기</button>
-    </>
+    <AddPostBox>
+      <Header>단어 추가하기</Header>
+      <AddForm />
+    </AddPostBox>
   );
 };
+
+const AddPostBox = styled.div`
+  width: 80vw;
+  min-width: 300px;
+  height: 80vh;
+  background-color: lightgrey;
+  padding: 2em;
+  position: relative;
+`;
+
+const Header = styled.header`
+  margin-bottom: 1em;
+  font-size: 1.3rem;
+  font-weight: bold;
+`;
 
 export default AddPost;

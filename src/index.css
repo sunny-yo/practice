@@ -18,3 +18,7 @@ button {
   outline: none;
   background-color: transparent;
 }
+
+input {
+  outline: none;
+}
