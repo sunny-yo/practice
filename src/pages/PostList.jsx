@@ -8,17 +8,17 @@ import { FaPlus } from 'react-icons/fa';
 const PostList = (props) => {
   const navigate = useNavigate();
   const postlist = useSelector((state) => state.words.postlist);
-  console.log(postlist);
 
   const goToAddPost = () => {
     navigate('create');
   };
+
   return (
     <PostListBox>
       <Header>MY DICTIONARY</Header>
       <ListBox>
         {postlist.map((item) => (
-          <PostCard post={item} />
+          <PostCard key={item.id} post={item} />
         ))}
       </ListBox>
       <AddBtn onClick={goToAddPost}>
@@ -32,6 +32,7 @@ const PostListBox = styled.div`
   width: 80vw;
   min-width: 300px;
   height: 80vh;
+  min-height: 500px;
   background-color: lightgrey;
   padding: 2em;
   position: relative;
@@ -44,7 +45,7 @@ const Header = styled.header`
 `;
 
 const ListBox = styled.section`
-  max-height: 70vh;
+  max-height: 93%;
   overflow: auto;
 `;
 

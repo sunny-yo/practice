@@ -5,7 +5,7 @@ import AddForm from '../components/AddForm';
 
 const AddPost = (props) => {
   const location = useLocation();
-  console.log(location);
+
   return (
     <AddPostBox>
       <Header>단어 추가하기</Header>

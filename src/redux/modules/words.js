@@ -1,5 +1,9 @@
 // words.js
 
+import Firestore from '../../service/firestore';
+
+const FSapi = new Firestore();
+
 // Actions
 const LOAD = 'words/LOAD';
 const CREATE = 'words/CREATE';
@@ -28,11 +32,41 @@ export function removeWord(wordId) {
   return { type: REMOVE, data: wordId };
 }
 
+//Middleware
+export const loadWordsFB = () => {
+  return async function (dispatch) {
+    const wordlist = await FSapi.loadWords();
+    dispatch(loadWords(wordlist));
+  };
+};
+
+export const createWordFB = (wordObj) => {
+  return async function (dispatch) {
+    const docRef = await FSapi.createWord(wordObj);
+    const wordData = { id: docRef.id, ...wordObj };
+    dispatch(createWord(wordData));
+  };
+};
+
+export const updateWordFB = (wordObj) => {
+  return async function (dispatch) {
+    await FSapi.updateWord(wordObj);
+    dispatch(updateWord(wordObj));
+  };
+};
+
+export const removeWordFB = (wordId) => {
+  return async function (dispatch) {
+    await FSapi.removeWord(wordId);
+    dispatch(removeWord(wordId));
+  };
+};
+
 // Reducer
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
-      return state;
+      return { postlist: action.data };
     case CREATE: {
       const new_word_list = [...state.postlist, action.data];
       return { postlist: new_word_list };

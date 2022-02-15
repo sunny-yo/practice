@@ -17,7 +17,7 @@ PostCardPiece.defaultProps = {
 };
 
 const PieceBox = styled.div`
-  padding: 0.2em;
+  padding: 0.1em 0;
 `;
 
 const Label = styled.label`
