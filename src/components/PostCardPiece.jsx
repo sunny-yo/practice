@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 const PostCardPiece = (props) => {
-  const { title, content } = props;
+  const { title, content, color } = props;
   return (
     <PieceBox>
       <Label htmlFor={title}>{title}</Label>
-      <Content>{content}</Content>
+      <Content color={color}>{content}</Content>
     </PieceBox>
   );
 };
@@ -14,6 +14,7 @@ const PostCardPiece = (props) => {
 PostCardPiece.defaultProps = {
   title: 'title',
   content: 'content',
+  color: 'black',
 };
 
 const PieceBox = styled.div`
@@ -28,6 +29,7 @@ const Label = styled.label`
 const Content = styled.div`
   font-size: 1rem;
   font-weight: bold;
+  color: ${(props) => props.color};
 `;
 
 export default PostCardPiece;

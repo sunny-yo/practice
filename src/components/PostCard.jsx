@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PostCardPiece from './PostCardPiece';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { removeWord, removeWordFB } from '../redux/modules/words';
+import { removeWordFB } from '../redux/modules/words';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const PostCard = ({ post }) => {
     <PostCardBox>
       <PostCardPiece title={'단어'} content={word} />
       <PostCardPiece title={'설명'} content={desc} />
-      <PostCardPiece title={'예시'} content={ex} />
+      <PostCardPiece title={'예시'} content={ex} color={'#039be5'} />
       <ButtonBox>
         <button onClick={editCard}>
           <FaEdit />
