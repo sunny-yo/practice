@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createWordFB, updateWordFB } from '../redux/modules/words';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { create, update } from '../redux/modules/wordsSlice';
 
 const AddForm = ({ post }) => {
   const navigate = useNavigate();
@@ -31,11 +32,10 @@ const AddForm = ({ post }) => {
     }
 
     post.state
-      ? dispatch(
-          updateWordFB({ ...post.state, word: word, desc: desc, ex: ex })
-        )
+      ? dispatch(update({ ...post.state, word: word, desc: desc, ex: ex }))
       : dispatch(
-          createWordFB({
+          create({
+            id: new Date().getTime(),
             word: word,
             desc: desc,
             ex: ex,
