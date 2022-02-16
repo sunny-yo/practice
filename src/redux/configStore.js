@@ -1,4 +1,5 @@
-//configStore.js
+// configStore.js
+// pure redux store
 import { createBrowserHistory } from 'history';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';

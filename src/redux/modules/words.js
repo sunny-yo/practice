@@ -1,4 +1,5 @@
 // words.js
+// pure redux (duck 구조)
 
 import Firestore from '../../service/firestore';
 

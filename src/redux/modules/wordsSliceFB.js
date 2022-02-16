@@ -1,3 +1,5 @@
+// apply redux-toolkit (with linking to firestore)
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Firestore from '../../service/firestore';
 

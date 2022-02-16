@@ -1,3 +1,5 @@
+// apply redux-toolkit (without linking to firestore)
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
