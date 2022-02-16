@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import PostCardPiece from './PostCardPiece';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { remove, removeWordFB } from '../redux/modules/wordsSlice';
+import { remove } from '../redux/modules/wordsSlice';
+import { removeWordFB } from '../redux/modules/wordsSliceFB';
 
 const PostCard = ({ post }) => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const PostCard = ({ post }) => {
   };
 
   const deleteCard = () => {
-    dispatch(remove(id));
+    dispatch(removeWordFB(id));
   };
 
   return (

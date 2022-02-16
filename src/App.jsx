@@ -4,13 +4,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddPost from './pages/AddPost';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { load, loadWordsFB } from './redux/modules/wordsSlice';
+import { load } from './redux/modules/wordsSlice';
+import { loadWordsFB } from './redux/modules/wordsSliceFB';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(load());
+    dispatch(loadWordsFB());
   }, []);
 
   return (
