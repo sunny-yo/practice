@@ -1,9 +1,13 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { createWordFB, updateWordFB } from '../redux/modules/words';
+import {
+  create,
+  createWordFB,
+  update,
+  updateWordFB,
+} from '../redux/modules/wordsSlice';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { create, update } from '../redux/modules/wordsSlice';
 
 const AddForm = ({ post }) => {
   const navigate = useNavigate();

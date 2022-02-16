@@ -7,7 +7,7 @@ import { FaPlus } from 'react-icons/fa';
 
 const PostList = (props) => {
   const navigate = useNavigate();
-  const postlist = useSelector((state) => state.words);
+  const postlist = useSelector((state) => state.words.list);
   console.log(postlist);
 
   const goToAddPost = () => {
