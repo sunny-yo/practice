@@ -1,0 +1,295 @@
+:root {
+  --media-query: 48rem;
+  --background-color: antiquewhite;
+  --color-black: black;
+  --color-white: white;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color);
+}
+
+/* CALENDAR SECTION */
+.container {
+  width: 90%;
+  height: 80vh;
+  max-width: 80rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.calendar {
+  height: 100%;
+  min-height: 25rem;
+  background-color: burlywood;
+  display: flex;
+  flex-direction: column;
+  flex: 1 75%;
+}
+
+.header {
+  width: 100%;
+  flex: 1 25%;
+  padding: 0.5em 0.8em;
+  background-color: darkgoldenrod;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .today {
+  width: 100%;
+  text-align: start;
+  font-size: 0.8rem;
+}
+
+.header .nav {
+  width: 100%;
+  padding: 1em 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header .nav h1 {
+  font-size: 2rem;
+}
+.header .nav i {
+  font-size: 1rem;
+}
+
+.date-container {
+  width: 100%;
+  flex: 1 80%;
+  position: relative;
+}
+
+.days {
+  width: 100%;
+  height: calc(100% / 13);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.dates {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: calc(100% * 12 / 13);
+}
+
+.date {
+  width: calc(100% / 7);
+  height: calc(100% * 2 / 13);
+  padding: 0.3em;
+}
+.date.curr:hover {
+  cursor: pointer;
+  border: 1px solid rgb(139, 88, 22);
+}
+
+.date.curr[data-checked="true"] {
+  background-color: darkviolet;
+}
+
+.date.prev,
+.date.next {
+  opacity: 0.5;
+}
+
+/* POPUP SECTION */
+.pop-up {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 65%;
+  transform: translateX(-50%);
+  background-color: lightgrey;
+  padding: 1em;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.pop-up h3 {
+  font-size: 0.8rem;
+  font-weight: 300;
+  text-align: left;
+}
+
+.pop-up .period-toggle {
+  margin: 1.5rem auto;
+  font-size: 1.5rem;
+  opacity: 0.5;
+  transition: opacity 200ms ease-in;
+}
+.pop-up .period-toggle:hover {
+  opacity: 1;
+}
+.pop-up .period-toggle[data-checked="true"] {
+  opacity: 1;
+}
+
+.pop-up .popup-close {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+.pop-up .popup-close:hover {
+  color: darkolivegreen;
+  transform: scale(1.02);
+}
+
+.pop-up .memo {
+  text-align: left;
+  position: relative;
+}
+
+.pop-up .memo dt {
+  font-size: 0.7rem;
+}
+.pop-up .memo dt::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 1px;
+  background-color: darkgrey;
+  transform: translateY(-0.5em);
+}
+
+.pop-up .memo dd {
+  font-size: 1rem;
+  max-height: 5em;
+  overflow-y: auto;
+}
+
+.pop-up .memo .edit-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: color 150ms ease-in;
+}
+.pop-up .memo .edit-button:hover {
+  color: darkolivegreen;
+}
+
+.pop-up .memo .memo-input {
+  width: 100%;
+}
+
+/* PERIOD SECTION */
+.period-container {
+  flex: 1 25%;
+  height: 100%;
+  min-height: 25rem;
+  background-color: rgb(114, 114, 207);
+  position: relative;
+}
+
+.period-container header {
+  width: 100%;
+  height: 25%;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: cornflowerblue;
+}
+
+.period-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: cornsilk;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+}
+
+.period-info dt {
+  font-size: 1rem;
+}
+.period-info > dt::after {
+  content: "";
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+  background-color: lightgrey;
+}
+.period-info dd {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.period {
+  width: 100%;
+  height: 73%;
+  padding: 0.3em;
+  overflow-y: auto;
+}
+
+.period table {
+  width: 100%;
+  text-align: center;
+}
+
+.period-on {
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+@media screen and (max-width: 48rem) {
+  .period-container {
+    display: none;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    width: 30%;
+    min-width: 7rem;
+    height: 80%;
+  }
+
+  .period-on {
+    display: block;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    padding: 0.1em 0.5em;
+    border-radius: 4px;
+  }
+
+  .period-on i {
+    font-size: 1rem;
+    transition: transform 200ms ease-in;
+  }
+}

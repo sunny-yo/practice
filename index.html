@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script
+      src="https://kit.fontawesome.com/c5929fafa9.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="./styles.css" />
+    <script type="module" src="./src/main.js" defer></script>
+
+    <title>Calendar</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <section class="calendar">
+        <header class="header">
+          <p class="today"></p>
+          <div class="nav">
+            <button class="prev-button">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <h1 class="month"></h1>
+            <button class="next-button">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <p class="info"></p>
+        </header>
+        <section class="date-container">
+          <div class="days">
+            <span class="day">Sun</span>
+            <span class="day">Mon</span>
+            <span class="day">Tue</span>
+            <span class="day">Wed</span>
+            <span class="day">Thu</span>
+            <span class="day">Fri</span>
+            <span class="day">Sat</span>
+          </div>
+          <div class="dates"></div>
+          <section class="pop-up hide">
+            <h3></h3>
+            <button class="period-toggle">
+              <i class="fas fa-star"></i>
+            </button>
+            <button class="popup-close">
+              <i class="fas fa-times"></i>
+            </button>
+            <div class="memo">
+              <dl>
+                <dt>Memo</dt>
+                <dd></dd>
+              </dl>
+              <button class="edit-button">
+                <i class="fas fa-edit"></i>
+              </button>
+              <textarea name="memo" rows="5" class="memo-input hide"></textarea>
+            </div>
+          </section>
+        </section>
+      </section>
+      <section class="period-container">
+        <header>
+          <dl class="period-info">
+            <dt>예정일</dt>
+            <dd>D-5</dd>
+          </dl>
+        </header>
+        <div class="period">
+          <table>
+            <thead>
+              <tr>
+                <th>시작일</th>
+                <th>주기</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+      <button class="period-on">
+        <i class="fas fa-sort-down"></i>
+      </button>
+    </div>
+  </body>
+</html>
