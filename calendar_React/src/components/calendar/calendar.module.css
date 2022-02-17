@@ -1,0 +1,44 @@
+.container {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  background-color: aqua;
+  position: relative;
+}
+
+.header {
+  flex: 1 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: aquamarine;
+}
+
+.month {
+  margin: 0 1em;
+}
+
+.today {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}
+
+.popup {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  max-height: 65%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  background-color: chocolate;
+}
+
+.popup.hide {
+  display: none;
+}

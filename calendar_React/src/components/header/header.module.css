@@ -1,0 +1,13 @@
+header {
+  width: 100%;
+  padding: 1.5em;
+  text-align: center;
+  position: relative;
+  background-color: seagreen;
+}
+
+.logout {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+}

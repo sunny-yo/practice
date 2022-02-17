@@ -1,0 +1,14 @@
+.date {
+  width: calc(100% / 7);
+  height: calc(100% / 6);
+  padding: 0.3em;
+}
+
+.date.onStart {
+  background-color: rebeccapurple;
+}
+
+.prev,
+.next {
+  opacity: 0.7;
+}

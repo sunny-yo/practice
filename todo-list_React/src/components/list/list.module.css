@@ -1,0 +1,28 @@
+.item {
+  display: flex;
+  align-items: center;
+  margin: 0.3em 0;
+}
+
+.checkbox {
+  margin-right: 0.5em;
+}
+
+.name {
+  font-size: 1.5rem;
+  margin-right: 1em;
+}
+
+.modifyInput {
+  font-size: 1.3rem;
+  padding: 0.1rem 0;
+  margin-right: 1em;
+}
+
+button {
+  margin: 0 0.1em;
+}
+
+.hide {
+  display: none;
+}

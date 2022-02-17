@@ -1,0 +1,41 @@
+.container {
+  width: 65%;
+  max-width: 35rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: snow;
+}
+
+.login {
+  width: 100%;
+  padding: 3em 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5em;
+}
+
+.login ul {
+  width: 100%;
+}
+
+.login li {
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  padding: 0.3em 0;
+  margin: 0.3em 0;
+  border-radius: 16px;
+}
+.button:hover {
+  background-color: skyblue;
+}
