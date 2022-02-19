@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
@@ -8,11 +9,13 @@ import Main from './pages/Main';
 import Register from './pages/Register';
 
 function App() {
+  const isLogin = useSelector((state) => state.user.is_login);
+
   return (
     <>
-      <Navbar />
+      <Navbar isLogin={isLogin} />
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main isLogin={isLogin} />} />
         <Route path="/post" element={<AddPost />} />
         <Route path="/edit/:postId" element={<AddPost />} />
         <Route path="/post/:postId" element={<Detail />} />

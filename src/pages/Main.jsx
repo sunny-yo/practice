@@ -5,7 +5,7 @@ import { FaPlusCircle } from 'react-icons/fa';
 import { resp } from '../shared/response';
 import { useNavigate } from 'react-router-dom';
 
-const Main = (props) => {
+const Main = ({ isLogin }) => {
   const [cards, setCards] = useState([]);
   const navigate = useNavigate();
 
@@ -13,7 +13,12 @@ const Main = (props) => {
     setCards(resp);
   });
 
-  const goToAddPost = () => {
+  const addPost = () => {
+    if (!isLogin) {
+      alert('로그인 후 작성해주세요');
+      navigate('/login');
+      return;
+    }
     navigate('/post');
   };
 
@@ -22,7 +27,7 @@ const Main = (props) => {
       {cards.map((card) => (
         <PostCard key={card.id} card={card} />
       ))}
-      <AddButton onClick={goToAddPost}>
+      <AddButton onClick={addPost}>
         <FaPlusCircle />
       </AddButton>
     </ul>
