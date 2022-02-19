@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import PostCard from '../elements/PostCard';
+import PostCard from '../components/PostCard';
 import { FaPlusCircle } from 'react-icons/fa';
 import { resp } from '../shared/response';
 import { useNavigate } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import RegisterForm from '../elements/RegisterForm';
+import RegisterForm from '../components/RegisterForm';
 
 const Register = (props) => {
   return (

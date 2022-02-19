@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../components/Button';
+import Button from '../elements/Button';
 import { checkEmail, checkNickname, checkPW } from '../shared/functions';
 
 const RegisterForm = (props) => {
@@ -48,6 +48,7 @@ const RegisterForm = (props) => {
       email: email,
       nickName: nickname,
       password: pw,
+      passwordCheck: pwCheck,
     };
     console.log(registerData);
     navigate('/login');

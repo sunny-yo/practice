@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { memo, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { logout } from '../redux/modules/user';
 
-const Navbar = (props) => {
+const Navbar = ({ isLogin }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const goToMain = () => {
     navigate('/');
@@ -17,9 +20,21 @@ const Navbar = (props) => {
     navigate('/register');
   };
 
-  const logout = () => {
+  const _logout = () => {
+    dispatch(logout(''));
     goToMain();
   };
+
+  if (isLogin) {
+    return (
+      <Header>
+        <LogoImg onClick={goToMain} src="/img/logo.png" alt="logo" />
+        <div className="buttons">
+          <Button onClick={_logout}>로그아웃</Button>
+        </div>
+      </Header>
+    );
+  }
 
   return (
     <Header>
@@ -27,7 +42,6 @@ const Navbar = (props) => {
       <div className="buttons">
         <Button onClick={goToLogin}>로그인</Button>
         <Button onClick={goToRegister}>회원가입</Button>
-        {/* <Button onClick={logout}>로그아웃</Button> */}
       </div>
     </Header>
   );

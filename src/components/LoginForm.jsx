@@ -1,11 +1,14 @@
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../components/Button';
+import Button from '../elements/Button';
+import { login } from '../redux/modules/user';
 import { checkEmail } from '../shared/functions';
 
 const LoginForm = (props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const emailRef = useRef();
   const pwRef = useRef();
 
@@ -33,6 +36,7 @@ const LoginForm = (props) => {
     console.log(loginData);
     // GET /api/login
     // response => msg 띄워주기
+    dispatch(login(email));
     navigate('/'); // 성공일 때
   };
 

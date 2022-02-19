@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LoginForm from '../elements/LoginForm';
+import LoginForm from '../components/LoginForm';
 
 const Login = (props) => {
   return (

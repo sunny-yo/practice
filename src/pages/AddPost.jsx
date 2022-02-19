@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../components/Button';
+import Button from '../elements/Button';
 
 // layout 3개
 // 1. 이미지 / 텍스트
