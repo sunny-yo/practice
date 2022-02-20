@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const PostCardHeader = ({ nickName, date }) => {
+const PostCardHeader = ({ creater, date }) => {
   return (
     <HeaderBox>
-      <SpanBold>{nickName}</SpanBold>
-      <span>{date}</span>
+      <span className="creater">{creater}</span>
+      <span className="date">{date}</span>
     </HeaderBox>
   );
 };
@@ -14,10 +14,12 @@ const HeaderBox = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
-`;
-
-const SpanBold = styled.span`
-  font-weight: bold;
+  & .creater {
+    font-weight: bold;
+  }
+  & .date {
+    font-size: 0.7rem;
+  }
 `;
 
 export default PostCardHeader;

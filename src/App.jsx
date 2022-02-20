@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import Navbar from './components/Navbar';
 import AddPost from './pages/AddPost';
 import Detail from './pages/Detail';
@@ -19,8 +18,8 @@ function App() {
         <Route path="/post" element={<AddPost />} />
         <Route path="/edit/:postId" element={<AddPost />} />
         <Route path="/post/:postId" element={<Detail />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register isLogin={isLogin} />} />
+        <Route path="/login" element={<Login isLogin={isLogin} />} />
       </Routes>
     </>
   );

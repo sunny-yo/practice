@@ -2,16 +2,12 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PostCard from '../components/PostCard';
 import { FaPlusCircle } from 'react-icons/fa';
-import { resp } from '../shared/response';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Main = ({ isLogin }) => {
-  const [cards, setCards] = useState([]);
+  const cards = useSelector((state) => state.post.data);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setCards(resp);
-  });
 
   const addPost = () => {
     if (!isLogin) {
@@ -25,7 +21,7 @@ const Main = ({ isLogin }) => {
   return (
     <ul>
       {cards.map((card) => (
-        <PostCard key={card.id} card={card} />
+        <PostCard key={card.boardId} card={card} />
       ))}
       <AddButton onClick={addPost}>
         <FaPlusCircle />

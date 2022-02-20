@@ -5,8 +5,8 @@ import { FaHeart } from 'react-icons/fa';
 const PostCardFooter = (props) => {
   return (
     <FooterBox>
-      <span>좋아요 10개</span>
       <Like>
+      <span>좋아요 {like}개</span>
         <FaHeart />
       </Like>
     </FooterBox>

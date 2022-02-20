@@ -6,19 +6,28 @@ import PostCardFooter from './PostCardFooter';
 import PostCardHeader from './PostCardHeader';
 
 const PostCard = ({ card }) => {
-  const { id, title, nickName, content, likeCount, createdAt, modifiedAt } =
-    card;
+  const {
+    boardId,
+    creater,
+    content,
+    imageurl,
+    grid,
+    likeCount,
+    createdAt,
+    likes,
+  } = card;
+
   const navigate = useNavigate();
 
-  const goToEdit = () => {
-    navigate(`/edit/${id}`);
+  const goToEdit = (e) => {
+    navigate(`/edit/${boardId}`);
   };
 
   return (
     <CardBox onClick={goToEdit}>
-      <PostCardHeader nickName={nickName} date={createdAt} />
-      <PostCardContent title={title} content={content} />
-      <PostCardFooter like={likeCount} />
+      <PostCardHeader creater={creater} date={createdAt} />
+      <PostCardContent grid={grid} content={content} />
+      <PostCardFooter like={likeCount} likes={likes} boardId={boardId} />
     </CardBox>
   );
 };
