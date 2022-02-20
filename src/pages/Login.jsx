@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LoginForm from '../components/LoginForm';
 
-const Login = (props) => {
+const Login = ({ isLogin }) => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLogin) {
+      alert('이미 로그인이 되어있습니다.');
+      navigate('/');
+    }
+  }, []);
+
   return (
     <>
       <Title>로그인</Title>

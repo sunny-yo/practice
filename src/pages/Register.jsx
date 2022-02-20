@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import RegisterForm from '../components/RegisterForm';
 
-const Register = (props) => {
+const Register = ({ isLogin }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isLogin) {
+      alert('이미 로그인이 되어있습니다.');
+      navigate('/');
+    }
+  }, []);
+
   return (
     <>
       <Title>회원가입</Title>
