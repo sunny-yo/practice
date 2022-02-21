@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const Main = ({ isLogin }) => {
-  const cards = useSelector((state) => state.post.data);
+  const cards = useSelector(state => state.post.data);
   const navigate = useNavigate();
 
   const addPost = () => {
@@ -20,7 +20,7 @@ const Main = ({ isLogin }) => {
 
   return (
     <ul>
-      {cards.map((card) => (
+      {cards.map(card => (
         <PostCard key={card.boardId} card={card} />
       ))}
       <AddButton onClick={addPost}>

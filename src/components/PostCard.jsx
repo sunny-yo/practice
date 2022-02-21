@@ -19,12 +19,12 @@ const PostCard = ({ card }) => {
 
   const navigate = useNavigate();
 
-  const goToEdit = (e) => {
-    navigate(`/edit/${boardId}`);
+  const goToDetail = e => {
+    navigate(`/post/${boardId}`, { state: card });
   };
 
   return (
-    <CardBox onClick={goToEdit}>
+    <CardBox onClick={goToDetail}>
       <PostCardHeader creater={creater} date={createdAt} />
       <PostCardContent grid={grid} content={content} />
       <PostCardFooter like={likeCount} likes={likes} boardId={boardId} />

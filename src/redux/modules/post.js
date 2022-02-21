@@ -1,40 +1,87 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RESP, resp } from '../../shared/response';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import Firestore from '../../shared/firebase/firestore';
 
-const initialState = {
-  data: RESP.data,
-};
+const FSapi = new Firestore();
+
+export const getPostFB = createAsyncThunk(
+  'post/getPostFB',
+  async () => await FSapi.getPost()
+);
+
+export const addPostFB = createAsyncThunk(
+  'post/addPostFB',
+  async (postData, getState) => {
+    const docRef = await FSapi.addPost(postData);
+    return { ...postData, boardId: docRef.id };
+  }
+);
+
+export const updatePostFB = createAsyncThunk(
+  'post/updatePostFB',
+  async wordObj => {
+    await FSapi.updatePost(wordObj);
+    return wordObj;
+  }
+);
+
+export const deletePostFB = createAsyncThunk(
+  'post/deletePostFB',
+  async boardId => {
+    await FSapi.deletePost(boardId);
+    return boardId;
+  }
+);
 
 export const postSlice = createSlice({
   name: 'post',
-  initialState,
-  reducers: {
-    createPost: (state, action) => {
-      state = state;
+  initialState: { data: [] },
+  // reducers: {
+  //   createPost: (state, action) => {
+  //     console.log(action.payload);
+  //     state = state;
+  //   },
+  //   deletePost: (state, action) => {
+  //     state = state;
+  //   },
+  //   editPost: (state, action) => {
+  //     state = state;
+  //   },
+  //   postLike: (state, action) => {
+  //     state.data.map((post) =>
+  //       post.boardId === action.payload.boardId
+  //         ? (post.likes.push({ userId: action.payload.userId }),
+  //           post.likeCount++)
+  //         : post
+  //     );
+  //   },
+  //   postLikeCancel: (state, action) => {
+  //     state.data.map((post) =>
+  //       post.boardId === action.payload.boardId
+  //         ? ((post.likes = post.likes.filter((user) => {
+  //             return user.userId !== action.payload.userId;
+  //           })),
+  //           post.likeCount--)
+  //         : post
+  //     );
+  //   },
+  // },
+  extraReducers: {
+    [getPostFB.fulfilled]: (state, action) => {
+      state.data = action.payload;
     },
-    deletePost: (state, action) => {
-      state = state;
+    [addPostFB.fulfilled]: (state, action) => {
+      state.data = [...state.data, action.payload];
     },
-    editPost: (state, action) => {
-      state = state;
+    [updatePostFB.fulfilled]: (state, action) => {
+      state.list = state.list.map(word => {
+        if (word.id === action.payload.id) {
+          return action.payload;
+        }
+        return word;
+      });
     },
-    postLike: (state, action) => {
-      state.data.map((post) =>
-        post.boardId === action.payload.boardId
-          ? (post.likes.push({ userId: action.payload.userId }),
-            post.likeCount++)
-          : post
-      );
-    },
-    postLikeCancel: (state, action) => {
-      state.data.map((post) =>
-        post.boardId === action.payload.boardId
-          ? ((post.likes = post.likes.filter((user) => {
-              return user.userId !== action.payload.userId;
-            })),
-            post.likeCount--)
-          : post
-      );
+    [deletePostFB.fulfilled]: (state, action) => {
+      state.data = state.data.filter(post => post.boardId !== action.payload);
     },
   },
 });
