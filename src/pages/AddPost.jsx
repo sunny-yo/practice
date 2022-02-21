@@ -48,6 +48,7 @@ const AddPost = () => {
     };
     console.log(newPost);
     dispatch(addPostFB(newPost));
+    dispatch(setPreview(null));
 
     navigate('/');
   };

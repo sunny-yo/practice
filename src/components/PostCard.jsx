@@ -26,7 +26,7 @@ const PostCard = ({ card }) => {
   return (
     <CardBox onClick={goToDetail}>
       <PostCardHeader creater={creater} date={createdAt} />
-      <PostCardContent grid={grid} content={content} />
+      <PostCardContent grid={grid} content={content} image={imageurl} />
       <PostCardFooter like={likeCount} likes={likes} boardId={boardId} />
     </CardBox>
   );

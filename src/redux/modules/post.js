@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Firestore from '../../shared/firebase/firestore';
+import FBstorage from '../../shared/firebase/storage';
 
 const FSapi = new Firestore();
+const Storage = new FBstorage();
 
 export const getPostFB = createAsyncThunk(
   'post/getPostFB',
@@ -10,9 +12,12 @@ export const getPostFB = createAsyncThunk(
 
 export const addPostFB = createAsyncThunk(
   'post/addPostFB',
-  async (postData, getState) => {
-    const docRef = await FSapi.addPost(postData);
-    return { ...postData, boardId: docRef.id };
+  async (postData, { getState }) => {
+    const _image = getState().image.preview;
+    const _userid = getState().user.user_info.userid;
+    const url = await Storage.uploadFile(_image, _userid);
+    const docRef = await FSapi.addPost({ ...postData, imageurl: url });
+    return { ...postData, boardId: docRef.id, imageurl: url };
   }
 );
 
