@@ -1,11 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import PostCardContent from './PostCardContent';
 import PostCardFooter from './PostCardFooter';
 import PostCardHeader from './PostCardHeader';
 
 const PostCard = ({ card }) => {
+  const isLogin = useSelector(state => state.user.is_login);
+  const param = useParams();
   const {
     boardId,
     creater,
@@ -20,7 +23,7 @@ const PostCard = ({ card }) => {
   const navigate = useNavigate();
 
   const goToDetail = e => {
-    navigate(`/post/${boardId}`, { state: card });
+    param.postId && isLogin && navigate(`/post/${boardId}`, { state: card });
   };
 
   return (

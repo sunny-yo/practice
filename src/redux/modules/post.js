@@ -23,9 +23,17 @@ export const addPostFB = createAsyncThunk(
 
 export const updatePostFB = createAsyncThunk(
   'post/updatePostFB',
-  async wordObj => {
-    await FSapi.updatePost(wordObj);
-    return wordObj;
+  async (postData, { getState }) => {
+    const _image = getState().image.preview;
+    const _userid = getState().user.user_info.userid;
+    if (_image !== postData.imageurl) {
+      const url = await Storage.uploadFile(_image, _userid);
+      await FSapi.updatePost({ ...postData, imageurl: url });
+      return { ...postData, imageurl: url };
+    } else {
+      await FSapi.updatePost(postData);
+      return postData;
+    }
   }
 );
 
@@ -78,11 +86,11 @@ export const postSlice = createSlice({
       state.data = [...state.data, action.payload];
     },
     [updatePostFB.fulfilled]: (state, action) => {
-      state.list = state.list.map(word => {
-        if (word.id === action.payload.id) {
+      state.data = state.data.map(post => {
+        if (post.boardId === action.payload.boardId) {
           return action.payload;
         }
-        return word;
+        return post;
       });
     },
     [deletePostFB.fulfilled]: (state, action) => {

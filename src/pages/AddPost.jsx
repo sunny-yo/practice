@@ -1,21 +1,34 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import GridButton from '../components/GridButton';
 import Button from '../elements/Button';
-import { addPostFB } from '../redux/modules/post';
+import { addPostFB, updatePostFB } from '../redux/modules/post';
 import { setPreview } from '../redux/modules/image';
+import grid, { setGrid } from '../redux/modules/grid';
 
 const AddPost = () => {
   const preview = useSelector(state => state.image.preview);
   const userInfo = useSelector(state => state.user.user_info);
-  console.log(userInfo);
   const gridStyle = useSelector(state => state.grid.grid);
+  const [isEdit, setIsEdit] = useState(false);
+  const location = useLocation();
+  console.log(location.state);
+  const param = useParams();
   const contentRef = useRef();
   const fileRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (param.postId) {
+      setIsEdit(true);
+      dispatch(setGrid(location.state.grid));
+      dispatch(setPreview(location.state.imageurl));
+      contentRef.current.value = location.state.content;
+    }
+  }, []);
 
   const selectPhoto = e => {
     const fileReader = new FileReader();
@@ -46,8 +59,11 @@ const AddPost = () => {
       createdAt: new Date().toDateString(),
       likes: [],
     };
+
+    const editedPost = { ...location.state, content: content, grid: gridStyle };
     console.log(newPost);
-    dispatch(addPostFB(newPost));
+
+    !isEdit ? dispatch(addPostFB(newPost)) : dispatch(updatePostFB(editedPost));
     dispatch(setPreview(null));
 
     navigate('/');
@@ -70,7 +86,7 @@ const AddPost = () => {
           autoFocus
         ></textarea>
         <input ref={fileRef} onChange={selectPhoto} type='file' />
-        <Button name={'게시글 작성'} />
+        <Button name={param.postId ? '게시글 수정' : '게시글 작성'} />
       </PostForm>
     </>
   );

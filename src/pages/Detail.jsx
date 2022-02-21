@@ -13,7 +13,6 @@ const Detail = props => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.user_info.username);
-  console.log(location);
 
   // 원래는 parma=boardId 여서
   // 상세페이지 조회 api 보내고
