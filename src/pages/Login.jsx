@@ -11,7 +11,7 @@ const Login = ({ isLogin }) => {
       alert('이미 로그인이 되어있습니다.');
       navigate('/');
     }
-  }, []);
+  });
 
   return (
     <>

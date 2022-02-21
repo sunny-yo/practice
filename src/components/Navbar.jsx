@@ -9,15 +9,15 @@ const Navbar = ({ isLogin }) => {
   const dispatch = useDispatch();
 
   const goToMain = () => {
-    navigate('/');
+    navigate('/', { replace: true });
   };
 
   const goToLogin = () => {
-    navigate('/login');
+    navigate('/login', { replace: true });
   };
 
   const goToRegister = () => {
-    navigate('/register');
+    navigate('/register', { replace: true });
   };
 
   const _logout = () => {

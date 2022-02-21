@@ -5,12 +5,13 @@ import RegisterForm from '../components/RegisterForm';
 
 const Register = ({ isLogin }) => {
   const navigate = useNavigate();
+
   useEffect(() => {
     if (isLogin) {
       alert('이미 로그인이 되어있습니다.');
       navigate('/', { replace: true });
     }
-  }, []);
+  });
 
   return (
     <>
