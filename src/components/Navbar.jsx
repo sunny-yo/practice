@@ -2,7 +2,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { logout } from '../redux/modules/user';
+import { logoutFB } from '../redux/modules/user';
 
 const Navbar = ({ isLogin }) => {
   const navigate = useNavigate();
@@ -21,8 +21,8 @@ const Navbar = ({ isLogin }) => {
   };
 
   const _logout = () => {
-    dispatch(logout(''));
-    goToMain();
+    dispatch(logoutFB());
+    navigate('/', { replace: true });
   };
 
   if (isLogin) {

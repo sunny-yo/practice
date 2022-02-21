@@ -8,7 +8,7 @@ const Register = ({ isLogin }) => {
   useEffect(() => {
     if (isLogin) {
       alert('이미 로그인이 되어있습니다.');
-      navigate('/');
+      navigate('/', { replace: true });
     }
   }, []);
 

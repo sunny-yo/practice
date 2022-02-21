@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../elements/Button';
-import { login } from '../redux/modules/user';
+import { loginFB } from '../redux/modules/user';
 import { checkEmail } from '../shared/functions';
-import { RESP } from '../shared/response';
 
 const LoginForm = (props) => {
   const navigate = useNavigate();
@@ -34,12 +33,9 @@ const LoginForm = (props) => {
       email: email,
       password: pw,
     };
-    console.log(loginData);
-    // GET /api/login
-    // response => msg 띄워주기
-    const userInfo = RESP.userData;
-    dispatch(login(userInfo));
-    navigate('/'); // 성공일 때
+
+    dispatch(loginFB(loginData));
+    navigate('/', { replace: true }); // 성공일 때
   };
 
   return (

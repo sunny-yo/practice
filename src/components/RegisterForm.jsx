@@ -1,7 +1,10 @@
+import { replace } from 'connected-react-router';
 import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../elements/Button';
+import { sighupFB } from '../redux/modules/user';
 import { checkEmail, checkNickname, checkPW } from '../shared/functions';
 
 const RegisterForm = (props) => {
@@ -10,6 +13,7 @@ const RegisterForm = (props) => {
   const nicknameRef = useRef();
   const pwRef = useRef();
   const pwCheckRef = useRef();
+  const dispatch = useDispatch();
 
   const onRegist = (e) => {
     e.preventDefault();
@@ -41,17 +45,15 @@ const RegisterForm = (props) => {
       return;
     }
 
-    alert('회원가입이 완료되었습니다');
-
-    // POST /api/register
     const registerData = {
       email: email,
-      nickName: nickname,
+      username: nickname,
       password: pw,
       passwordCheck: pwCheck,
     };
-    console.log(registerData);
-    navigate('/login');
+
+    dispatch(sighupFB(registerData));
+    navigate('/', { replace: true });
   };
 
   return (
