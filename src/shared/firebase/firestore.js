@@ -6,6 +6,10 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  query,
+  orderBy,
+  limit,
+  startAfter,
 } from 'firebase/firestore';
 import firebaseApp from './firebase.js';
 
@@ -14,11 +18,29 @@ class Firestore {
     this.db = getFirestore(firebaseApp);
   }
 
-  async getPost() {
-    const postData = await getDocs(collection(this.db, 'post'));
+  async getPost({ size, next }) {
     const postlist = [];
-    postData.forEach(doc => postlist.push({ boardId: doc.id, ...doc.data() }));
-    return postlist;
+    let q;
+    const docRef = collection(this.db, 'post');
+    if (!next) {
+      q = query(docRef, orderBy('createdAt', 'desc'), limit(size + 1));
+    } else {
+      q = query(
+        docRef,
+        orderBy('createdAt', 'desc'),
+        startAfter(next),
+        limit(size + 1)
+      );
+    }
+    const documentSnapshots = await getDocs(q);
+    const lastVisible =
+      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    documentSnapshots.forEach(doc => {
+      postlist.push({ boardId: doc.id, ...doc.data() });
+    });
+    postlist.pop();
+
+    return { postlist, lastVisible };
   }
 
   async addPost(newPostData) {

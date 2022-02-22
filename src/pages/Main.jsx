@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PostCard from '../components/PostCard';
 import { FaPlusCircle } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getPostFB } from '../redux/modules/post';
+import InfinityScroll from '../shared/InfinityScroll';
 
 const Main = ({ isLogin }) => {
-  const cards = useSelector(state => state.post.data);
+  const { data, is_loading, paging } = useSelector(state => state.post);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const addPost = () => {
     if (!isLogin) {
@@ -19,13 +22,22 @@ const Main = ({ isLogin }) => {
   };
 
   return (
-    <ListBox>
-      {data.map(card => (
-        <PostCard key={card.boardId} card={card} />
-      ))}
-      <AddButton onClick={addPost}>
-        <FaPlusCircle />
-      </AddButton>
+    <InfinityScroll
+      callNext={() => {
+        dispatch(getPostFB());
+      }}
+      is_next={paging.load ? true : false}
+      loading={is_loading}
+    >
+      <ListBox>
+        {data.map(card => (
+          <PostCard key={card.boardId} card={card} />
+        ))}
+        <AddButton onClick={addPost}>
+          <FaPlusCircle />
+        </AddButton>
+      </ListBox>
+    </InfinityScroll>
   );
 };
 

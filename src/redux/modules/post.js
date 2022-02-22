@@ -5,9 +5,21 @@ import FBstorage from '../../shared/firebase/storage';
 const FSapi = new Firestore();
 const Storage = new FBstorage();
 
+const initialState = {
+  data: [],
+  paging: { load: true, next: null, size: 6 },
+  is_loading: false,
+};
+
 export const getPostFB = createAsyncThunk(
   'post/getPostFB',
-  async () => await FSapi.getPost()
+  async (_, { dispatch, getState }) => {
+    if (!getState().post.paging.load) return null;
+    dispatch(setLoading(true));
+    const resp = await FSapi.getPost(getState().post.paging);
+    dispatch(setPost(resp.postlist));
+    return resp;
+  }
 );
 
 export const addPostFB = createAsyncThunk(
@@ -63,40 +75,22 @@ export const postLikeCancelFB = createAsyncThunk(
 
 export const postSlice = createSlice({
   name: 'post',
-  initialState: { data: [] },
-  // reducers: {
-  //   createPost: (state, action) => {
-  //     console.log(action.payload);
-  //     state = state;
-  //   },
-  //   deletePost: (state, action) => {
-  //     state = state;
-  //   },
-  //   editPost: (state, action) => {
-  //     state = state;
-  //   },
-  //   postLike: (state, action) => {
-  //     state.data.map((post) =>
-  //       post.boardId === action.payload.boardId
-  //         ? (post.likes.push({ userId: action.payload.userId }),
-  //           post.likeCount++)
-  //         : post
-  //     );
-  //   },
-  //   postLikeCancel: (state, action) => {
-  //     state.data.map((post) =>
-  //       post.boardId === action.payload.boardId
-  //         ? ((post.likes = post.likes.filter((user) => {
-  //             return user.userId !== action.payload.userId;
-  //           })),
-  //           post.likeCount--)
-  //         : post
-  //     );
-  //   },
-  // },
+  initialState,
+  reducers: {
+    setLoading: (state, action) => {
+      state.is_loading = action.payload;
+    },
+    setPost: (state, action) => {
+      state.data.push(...action.payload);
+      state.paging.load =
+        action.payload.length < state.paging.size ? false : true;
+    },
+  },
   extraReducers: {
     [getPostFB.fulfilled]: (state, action) => {
-      state.data = action.payload;
+      if (!action.payload) return;
+      state.paging.next = action.payload.lastVisible;
+      state.is_loading = false;
     },
     [addPostFB.fulfilled]: (state, action) => {
       state.data = [...state.data, action.payload];
@@ -131,7 +125,14 @@ export const postSlice = createSlice({
   },
 });
 
-export const { createPost, deletePost, editPost, postLike, postLikeCancel } =
-  postSlice.actions;
+export const {
+  setLoading,
+  setPost,
+  createPost,
+  deletePost,
+  editPost,
+  postLike,
+  postLikeCancel,
+} = postSlice.actions;
 
 export default postSlice.reducer;
