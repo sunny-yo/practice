@@ -14,7 +14,6 @@ const AddPost = () => {
   const gridStyle = useSelector(state => state.grid.grid);
   const [isEdit, setIsEdit] = useState(false);
   const location = useLocation();
-  console.log(location.state);
   const param = useParams();
   const contentRef = useRef();
   const fileRef = useRef();

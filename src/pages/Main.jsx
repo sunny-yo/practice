@@ -19,16 +19,20 @@ const Main = ({ isLogin }) => {
   };
 
   return (
-    <ul>
-      {cards.map(card => (
+    <ListBox>
+      {data.map(card => (
         <PostCard key={card.boardId} card={card} />
       ))}
       <AddButton onClick={addPost}>
         <FaPlusCircle />
       </AddButton>
-    </ul>
   );
 };
+
+const ListBox = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 const AddButton = styled.button`
   position: fixed;

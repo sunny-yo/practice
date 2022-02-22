@@ -28,14 +28,16 @@ const PostCard = ({ card }) => {
 
   return (
     <CardBox onClick={goToDetail}>
-      <PostCardHeader creater={creater} date={createdAt} />
-      <PostCardContent grid={grid} content={content} image={imageurl} />
-      <PostCardFooter
-        card={card}
-        likeCount={likeCount}
-        likes={likes}
-        boardId={boardId}
-      />
+      <StyleBox>
+        <PostCardHeader creater={creater} date={createdAt} />
+        <PostCardContent grid={grid} content={content} image={imageurl} />
+        <PostCardFooter
+          card={card}
+          likeCount={likeCount}
+          likes={likes}
+          boardId={boardId}
+        />
+      </StyleBox>
     </CardBox>
   );
 };
@@ -43,9 +45,28 @@ const PostCard = ({ card }) => {
 const CardBox = styled.li`
   display: flex;
   flex-direction: column;
+  width: 33.3%;
+  height: 100%;
+
+  @media screen and (max-width: 50rem) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+  }
+  @media screen and (max-width: 30rem) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+`;
+
+const StyleBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0.5em 0.3em;
+  padding: 0.5rem;
+  width: calc(100%-0.6em);
   background-color: lightblue;
-  padding: 1em;
-  margin: 0.5em 0;
 `;
 
 export default PostCard;
