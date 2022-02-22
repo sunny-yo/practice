@@ -23,14 +23,19 @@ const PostCard = ({ card }) => {
   const navigate = useNavigate();
 
   const goToDetail = e => {
-    param.postId && isLogin && navigate(`/post/${boardId}`, { state: card });
+    !param.postId && isLogin && navigate(`/post/${boardId}`, { state: card });
   };
 
   return (
     <CardBox onClick={goToDetail}>
       <PostCardHeader creater={creater} date={createdAt} />
       <PostCardContent grid={grid} content={content} image={imageurl} />
-      <PostCardFooter like={likeCount} likes={likes} boardId={boardId} />
+      <PostCardFooter
+        card={card}
+        likeCount={likeCount}
+        likes={likes}
+        boardId={boardId}
+      />
     </CardBox>
   );
 };

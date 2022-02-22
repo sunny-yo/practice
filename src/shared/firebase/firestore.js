@@ -17,9 +17,7 @@ class Firestore {
   async getPost() {
     const postData = await getDocs(collection(this.db, 'post'));
     const postlist = [];
-    postData.forEach((doc) =>
-      postlist.push({ boardId: doc.id, ...doc.data() })
-    );
+    postData.forEach(doc => postlist.push({ boardId: doc.id, ...doc.data() }));
     return postlist;
   }
 

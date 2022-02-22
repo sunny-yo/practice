@@ -18,21 +18,21 @@ export const getUserFB = createAsyncThunk('user/getUserFB', async () => {
 
 export const sighupFB = createAsyncThunk(
   'user/sighupFB',
-  async (registerData) => {
+  async registerData => {
     const userData = await FBapi.signUp(registerData);
     return userData;
   }
 );
 
-export const loginFB = createAsyncThunk('user/loginFB', async (loginData) => {
+export const loginFB = createAsyncThunk('user/loginFB', async loginData => {
   const userData = await FBapi.signIn(loginData);
   return userData;
 });
 
-export const logoutFB = createAsyncThunk(
-  'user/logoutFB',
-  async () => await FBapi.signOut()
-);
+export const logoutFB = createAsyncThunk('user/logoutFB', async () => {
+  await FBapi.signOut();
+  return false;
+});
 
 export const userSlice = createSlice({
   name: 'user',
@@ -52,7 +52,7 @@ export const userSlice = createSlice({
     },
     [logoutFB.fulfilled]: (state, action) => {
       state.user_info = initialState.user_info;
-      state.is_login = initialState.is_login;
+      state.is_login = action.payload;
     },
   },
 });

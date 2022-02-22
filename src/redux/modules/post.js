@@ -45,6 +45,22 @@ export const deletePostFB = createAsyncThunk(
   }
 );
 
+export const postLikeFB = createAsyncThunk(
+  'post/postLikeFB',
+  async postData => {
+    await FSapi.updatePost(postData);
+    return postData;
+  }
+);
+
+export const postLikeCancelFB = createAsyncThunk(
+  'post/postLikeCancelFB',
+  async postData => {
+    await FSapi.updatePost(postData);
+    return postData;
+  }
+);
+
 export const postSlice = createSlice({
   name: 'post',
   initialState: { data: [] },
@@ -95,6 +111,22 @@ export const postSlice = createSlice({
     },
     [deletePostFB.fulfilled]: (state, action) => {
       state.data = state.data.filter(post => post.boardId !== action.payload);
+    },
+    [postLikeFB.fulfilled]: (state, action) => {
+      state.data = state.data.map(post => {
+        if (post.boardId === action.payload.boardId) {
+          return action.payload;
+        }
+        return post;
+      });
+    },
+    [postLikeCancelFB.fulfilled]: (state, action) => {
+      state.data = state.data.map(post => {
+        if (post.boardId === action.payload.boardId) {
+          return action.payload;
+        }
+        return post;
+      });
     },
   },
 });
