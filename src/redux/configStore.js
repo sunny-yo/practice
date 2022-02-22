@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import userReducer from './modules/user';
 import postReducer from './modules/post';
 import imageReducer from './modules/image';
@@ -15,5 +15,6 @@ export const store = configureStore({
     image: imageReducer,
     grid: gridReducer,
   },
-  // middleware: [logger],
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(logger),
 });
