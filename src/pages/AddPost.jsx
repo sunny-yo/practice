@@ -66,7 +66,7 @@ const AddPost = () => {
     dispatch(setPreview(null));
     dispatch(resetGrid());
 
-    navigate('/');
+    navigate('/', { replace: true });
   };
 
   return (

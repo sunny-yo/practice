@@ -33,13 +33,10 @@ class Firestore {
       );
     }
     const documentSnapshots = await getDocs(q);
-    const lastVisible =
-      documentSnapshots.docs[documentSnapshots.docs.length - 1];
+    let lastVisible = documentSnapshots.docs[documentSnapshots.docs.length - 1];
     documentSnapshots.forEach(doc => {
       postlist.push({ boardId: doc.id, ...doc.data() });
     });
-    postlist.pop();
-
     return { postlist, lastVisible };
   }
 

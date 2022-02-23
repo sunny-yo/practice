@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -6,7 +6,7 @@ import PostCardContent from './PostCardContent';
 import PostCardFooter from './PostCardFooter';
 import PostCardHeader from './PostCardHeader';
 
-const PostCard = ({ card }) => {
+const PostCard = memo(({ card }) => {
   const isLogin = useSelector(state => state.user.is_login);
   const param = useParams();
   const isDetail = param.postId ? true : false;
@@ -24,7 +24,7 @@ const PostCard = ({ card }) => {
   const navigate = useNavigate();
 
   const goToDetail = e => {
-    !param.postId && isLogin && navigate(`/post/${boardId}`, { state: card });
+    !isDetail && isLogin && navigate(`/post/${boardId}`);
   };
 
   return (

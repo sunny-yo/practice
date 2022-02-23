@@ -7,14 +7,13 @@ const Storage = new FBstorage();
 
 const initialState = {
   data: [],
-  paging: { load: true, next: null, size: 6 },
+  paging: { load: true, next: null, size: 10 },
   is_loading: false,
 };
 
 export const getPostFB = createAsyncThunk(
   'post/getPostFB',
   async (_, { dispatch, getState }) => {
-    if (!getState().post.paging.load) return null;
     dispatch(setLoading(true));
     const resp = await FSapi.getPost(getState().post.paging);
     dispatch(setPost(resp.postlist));
@@ -81,19 +80,27 @@ export const postSlice = createSlice({
       state.is_loading = action.payload;
     },
     setPost: (state, action) => {
-      state.data.push(...action.payload);
-      state.paging.load =
-        action.payload.length < state.paging.size ? false : true;
+      const postlist = action.payload;
+      if (postlist.length === state.paging.size + 1) {
+        postlist.pop();
+      } else {
+        state.paging.load = false;
+      }
+      state.data = [...state.data, ...postlist];
+    },
+    setNewPaging: (state, action) => {
+      state.data = initialState.data;
+      state.paging.load = true;
+      state.paging.next = null;
     },
   },
   extraReducers: {
     [getPostFB.fulfilled]: (state, action) => {
-      if (!action.payload) return;
       state.paging.next = action.payload.lastVisible;
       state.is_loading = false;
     },
     [addPostFB.fulfilled]: (state, action) => {
-      state.data = [...state.data, action.payload];
+      state.data = [action.payload].concat(state.data);
     },
     [updatePostFB.fulfilled]: (state, action) => {
       state.data = state.data.map(post => {
@@ -128,6 +135,7 @@ export const postSlice = createSlice({
 export const {
   setLoading,
   setPost,
+  setNewPaging,
   createPost,
   deletePost,
   editPost,

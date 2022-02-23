@@ -18,7 +18,7 @@ class FirebaseAuth {
   async signUp(registerData) {
     const { email, username, password } = registerData;
     return createUserWithEmailAndPassword(this.auth, email, password)
-      .then((user) => {
+      .then(user => {
         updateProfile(this.auth.currentUser, {
           displayName: username,
         });
@@ -31,7 +31,7 @@ class FirebaseAuth {
         };
         return userData;
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -42,7 +42,7 @@ class FirebaseAuth {
     const { email, password } = loginData;
     return setPersistence(this.auth, browserSessionPersistence).then(() => {
       const response = signInWithEmailAndPassword(this.auth, email, password)
-        .then((user) => {
+        .then(user => {
           const userData = {
             user_info: {
               userid: user.user.uid,
@@ -52,7 +52,7 @@ class FirebaseAuth {
           };
           return userData;
         })
-        .catch((error) => {
+        .catch(error => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(errorCode);
@@ -68,7 +68,7 @@ class FirebaseAuth {
         // Sign-out successful.
         console.log('로그아웃 성공');
       })
-      .catch((error) => {
+      .catch(error => {
         // An error happened.
         console.log(error);
       });
@@ -77,14 +77,14 @@ class FirebaseAuth {
   async getUser() {
     const userData = { is_login: null, user_info: {} };
     const response = new Promise((resolve, reject) => {
-      onAuthStateChanged(this.auth, (user) => {
+      onAuthStateChanged(this.auth, user => {
         if (user) {
           userData.user_info = { userid: user.uid, username: user.displayName };
           userData.is_login = true;
           resolve(userData);
         } else {
           userData.user_info = { userid: null, username: null };
-          userData.is_login = true;
+          userData.is_login = false;
           resolve(userData);
         }
       });

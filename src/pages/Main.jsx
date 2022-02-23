@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PostCard from '../components/PostCard';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getPostFB } from '../redux/modules/post';
-import InfinityScroll from '../shared/InfinityScroll';
+import InfinityScroll from '../components/InfinityScroll';
 
 const Main = ({ isLogin }) => {
   const { data, is_loading, paging } = useSelector(state => state.post);

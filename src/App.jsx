@@ -8,7 +8,7 @@ import Detail from './pages/Detail';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import Register from './pages/Register';
-import { getPostFB } from './redux/modules/post';
+import { getPostFB, setNewPaging } from './redux/modules/post';
 import { getUserFB } from './redux/modules/user';
 
 function App() {
@@ -18,8 +18,9 @@ function App() {
   const isSession = sessionStorage.getItem(sessionKey) ? true : false;
 
   useEffect(() => {
-    dispatch(getPostFB());
     isSession && dispatch(getUserFB());
+    dispatch(setNewPaging());
+    dispatch(getPostFB());
   }, [isLogin]);
 
   return (
