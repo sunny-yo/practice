@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -13,9 +13,9 @@ const AddPost = () => {
   const preview = useSelector(state => state.image.preview);
   const userInfo = useSelector(state => state.user.user_info);
   const gridStyle = useSelector(state => state.grid.grid);
-  const [isEdit, setIsEdit] = useState(false);
   const location = useLocation();
   const param = useParams();
+  const isEdit = param.postId ? true : false;
   const contentRef = useRef();
   const fileRef = useRef();
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ const AddPost = () => {
 
   useEffect(() => {
     if (param.postId) {
-      setIsEdit(true);
       dispatch(setGrid(location.state.grid));
       dispatch(setPreview(location.state.imageurl));
       contentRef.current.value = location.state.content;

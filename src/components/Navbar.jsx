@@ -1,5 +1,5 @@
-import React, { memo, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPostFB, setNewPaging } from '../redux/modules/post';

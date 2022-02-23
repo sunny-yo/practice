@@ -21,7 +21,7 @@ function App() {
     isSession && dispatch(getUserFB());
     dispatch(setNewPaging());
     dispatch(getPostFB());
-  }, [isLogin]);
+  }, [isLogin, isSession]);
 
   return (
     <>
