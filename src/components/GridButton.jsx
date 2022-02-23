@@ -13,8 +13,8 @@ const GridButton = ({ grid }) => {
   return (
     <ButtonBox grid={grid} onClick={handleGrid}>
       <Img id='column' src='/img/grid_1.png' alt='' />
-      <Img id='row' src='/img/grid_2.png' alt='' />
-      <Img id='row-reverse' src='/img/grid_3.png' alt='' />
+      <Img id='row-reverse' src='/img/grid_2.png' alt='' />
+      <Img id='row' src='/img/grid_3.png' alt='' />
     </ButtonBox>
   );
 };

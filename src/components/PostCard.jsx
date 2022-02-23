@@ -9,6 +9,7 @@ import PostCardHeader from './PostCardHeader';
 const PostCard = ({ card }) => {
   const isLogin = useSelector(state => state.user.is_login);
   const param = useParams();
+  const isDetail = param.postId ? true : false;
   const {
     boardId,
     creater,
@@ -27,7 +28,7 @@ const PostCard = ({ card }) => {
   };
 
   return (
-    <CardBox onClick={goToDetail}>
+    <CardBox onClick={goToDetail} className={isDetail ? 'detail' : 'main'}>
       <StyleBox>
         <PostCardHeader creater={creater} date={createdAt} />
         <PostCardContent grid={grid} content={content} image={imageurl} />
@@ -40,20 +41,26 @@ const PostCard = ({ card }) => {
       </StyleBox>
     </CardBox>
   );
-};
+});
 
 const CardBox = styled.li`
   display: flex;
   flex-direction: column;
-  width: 33.3%;
+  width: 50%;
   height: 100%;
 
-  @media screen and (max-width: 50rem) {
+  // @media screen and (max-width: 50rem) {
+  //   flex-direction: row;
+  //   flex-wrap: wrap;
+  //   width: 50%;
+  // }
+  @media screen and (max-width: 40rem) {
     flex-direction: row;
     flex-wrap: wrap;
-    width: 50%;
+    width: 100%;
   }
-  @media screen and (max-width: 30rem) {
+
+  &.detail {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
@@ -64,9 +71,11 @@ const StyleBox = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.5em 0.3em;
-  padding: 0.5rem;
+  padding: 1em;
   width: calc(100%-0.6em);
-  background-color: lightblue;
+  border: 2px solid lightgrey;
+  border-radius: 8px;
+  // background-color: lightblue;
 `;
 
 export default PostCard;

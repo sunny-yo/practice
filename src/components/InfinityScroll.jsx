@@ -5,7 +5,7 @@ import _ from 'lodash';
 const InfinityScroll = props => {
   const { children, callNext, is_next, loading } = props;
 
-  const _handleScroll = _.throttle(() => {
+  const _handleScroll = _.debounce(() => {
     if (loading) return;
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
@@ -37,7 +37,7 @@ const InfinityScroll = props => {
 
   return (
     <>
-      {props.children}
+      {children}
       {is_next && <Spinner />}
     </>
   );

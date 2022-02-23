@@ -28,8 +28,11 @@ const Navbar = ({ isLogin }) => {
   if (isLogin) {
     return (
       <Header>
-        <LogoImg onClick={goToMain} src="/img/logo.png" alt="logo" />
-        <div className="buttons">
+        <LogoBox onClick={goToMain}>
+          <LogoImg src='/img/logo.png' alt='logo' />
+          <Title>Magazine</Title>
+        </LogoBox>
+        <div className='buttons'>
           <Button onClick={_logout}>로그아웃</Button>
         </div>
       </Header>

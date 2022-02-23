@@ -19,7 +19,7 @@ const ContentBox = styled.div`
 
 const ContentText = styled.div`
   display: block;
-  ${props => (props.grid === 'column' ? 'width: 100%;' : 'width: 50%')};
+  ${props => (props.grid === 'column' ? 'width: 100%;' : 'width: 50%;')};
 `;
 
 const ContentImg = styled.img`

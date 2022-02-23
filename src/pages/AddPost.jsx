@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 import GridButton from '../components/GridButton';
 import Button from '../elements/Button';
 import { addPostFB, updatePostFB } from '../redux/modules/post';
 import { setPreview } from '../redux/modules/image';
-import grid, { setGrid } from '../redux/modules/grid';
+import { resetGrid, setGrid } from '../redux/modules/grid';
 
 const AddPost = () => {
   const preview = useSelector(state => state.image.preview);
@@ -44,7 +45,7 @@ const AddPost = () => {
     e.preventDefault();
 
     const content = contentRef.current.value;
-    if (content === '' && !preview) {
+    if (content === '' || !preview) {
       alert('사진 첨부와 게시글을 작성해주세요');
       return;
     }
@@ -55,15 +56,15 @@ const AddPost = () => {
       imageurl: null,
       grid: gridStyle,
       likeCount: '0',
-      createdAt: new Date().toDateString(),
+      createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'),
       likes: [],
     };
 
     const editedPost = { ...location.state, content: content, grid: gridStyle };
-    console.log(newPost);
 
     !isEdit ? dispatch(addPostFB(newPost)) : dispatch(updatePostFB(editedPost));
     dispatch(setPreview(null));
+    dispatch(resetGrid());
 
     navigate('/');
   };

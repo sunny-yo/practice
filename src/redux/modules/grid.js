@@ -9,9 +9,12 @@ export const gridSlice = createSlice({
     setGrid: (state, action) => {
       state.grid = action.payload;
     },
+    resetGrid: (state, action) => {
+      state.grid = initialState.grid;
+    },
   },
 });
 
-export const { setGrid } = gridSlice.actions;
+export const { setGrid, resetGrid } = gridSlice.actions;
 
 export default gridSlice.reducer;
