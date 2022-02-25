@@ -27,32 +27,39 @@ const Navbar = ({ isLogin }) => {
     dispatch(logoutAxios({ navigate }));
   };
 
-  if (isLogin) {
-    return (
-      <Header>
-        <LogoBox onClick={goToMain}>
-          <LogoImg src='/img/logo.png' alt='logo' />
-          <Title>Magazine</Title>
-        </LogoBox>
-        <div className='buttons'>
-          <Button onClick={_logout}>로그아웃</Button>
-        </div>
-      </Header>
-    );
-  }
-
+  // if (isLogin) {
   return (
     <Header>
       <LogoBox onClick={goToMain}>
         <LogoImg src='/img/logo.png' alt='logo' />
         <Title>Magazine</Title>
       </LogoBox>
-      <div className='buttons'>
-        <Button onClick={goToLogin}>로그인</Button>
-        <Button onClick={goToRegister}>회원가입</Button>
-      </div>
+      {isLogin ? (
+        <div className='buttons'>
+          <Button onClick={_logout}>로그아웃</Button>
+        </div>
+      ) : (
+        <div className='buttons'>
+          <Button onClick={goToLogin}>로그인</Button>
+          <Button onClick={goToRegister}>회원가입</Button>
+        </div>
+      )}
     </Header>
   );
+  // }
+
+  //   return (
+  //     <Header>
+  //       <LogoBox onClick={goToMain}>
+  //         <LogoImg src='/img/logo.png' alt='logo' />
+  //         <Title>Magazine</Title>
+  //       </LogoBox>
+  //       <div className='buttons'>
+  //         <Button onClick={goToLogin}>로그인</Button>
+  //         <Button onClick={goToRegister}>회원가입</Button>
+  //       </div>
+  //     </Header>
+  //   );
 };
 
 const Header = styled.header`

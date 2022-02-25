@@ -82,6 +82,7 @@ export const userSlice = createSlice({
         state.user_info = initialState.user_info;
         state.is_login = false;
       }
+      alert('로그아웃 완료');
     },
   },
 });
