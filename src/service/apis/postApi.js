@@ -10,7 +10,7 @@ class PostApi {
 
   async getPosts() {
     const getpostConfig = {
-      // method: 'get',
+      method: 'get',
       url: `${this.base}/api/board`,
       headers: {},
     };
@@ -85,8 +85,6 @@ class PostApi {
       },
       data: JSON.stringify(postData),
     };
-    console.log(postData);
-    console.log(editpostConfig.url);
 
     return axios(editpostConfig)
       .then(res => {

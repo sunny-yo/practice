@@ -73,9 +73,8 @@ const AddPost = () => {
           updatePostAxios({
             boardId: param.postId,
             postData: {
-              // ...location.state, //
               username: userInfo.username,
-              imageUrl: location.state.imageurl,
+              imageUrl: location.state.imageUrl,
               content: content,
               grid: gridStyle,
             },

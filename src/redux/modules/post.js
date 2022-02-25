@@ -53,16 +53,18 @@ export const updatePostAxios = createAsyncThunk(
     dispatch(setLoading(true));
     const _image = getState().image.preview;
     const _userid = getState().user.user_info.userid;
+    console.log(postData.imageUrl);
+    console.log(_image);
     let result;
-    if (_image !== postData.imageurl) {
+    if (postData.imageUrl === _image) {
+      result = await Postapi.editPost({ boardId, postData, navigate });
+    } else {
       const url = await Storage.uploadFile(_image, _userid);
       result = await Postapi.editPost({
         boardId,
         postData: { ...postData, imageUrl: url },
         navigate,
       });
-    } else {
-      result = await Postapi.editPost({ boardId, postData, navigate });
     }
     return { result, postData, boardId };
   }
