@@ -1,9 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import Firestore from '../../shared/firebase/firestore';
-import FBstorage from '../../shared/firebase/storage';
+import PostApi from '../../service/apis/postApi';
+import Firestore from '../../service/firebase/firestore';
+import FBstorage from '../../service/firebase/storage';
+import { setOnePost } from './postdetail';
 
 const FSapi = new Firestore();
 const Storage = new FBstorage();
+const Postapi = new PostApi();
 
 const initialState = {
   data: [],
@@ -11,64 +14,96 @@ const initialState = {
   is_loading: false,
 };
 
-export const getPostFB = createAsyncThunk(
-  'post/getPostFB',
+export const getPostAxios = createAsyncThunk(
+  'post/getPostAxios',
   async (_, { dispatch, getState }) => {
     dispatch(setLoading(true));
-    const resp = await FSapi.getPost(getState().post.paging);
-    dispatch(setPost(resp.postlist));
+    const resp = await Postapi.getPosts();
+    dispatch(setPost(resp.data));
     return resp;
   }
 );
 
-export const addPostFB = createAsyncThunk(
-  'post/addPostFB',
-  async (postData, { getState }) => {
-    const _image = getState().image.preview;
-    const _userid = getState().user.user_info.userid;
-    const url = await Storage.uploadFile(_image, _userid);
-    const docRef = await FSapi.addPost({ ...postData, imageurl: url });
-    return { ...postData, boardId: docRef.id, imageurl: url };
+export const getOnePostAxios = createAsyncThunk(
+  'post/getOnePostAxios',
+  async (boardId, { dispatch }) => {
+    dispatch(setLoading(true));
+    const res = await Postapi.getOnePost({ boardId, dispatch });
+    return res.data;
   }
 );
 
-export const updatePostFB = createAsyncThunk(
-  'post/updatePostFB',
-  async (postData, { getState }) => {
+export const addPostAxios = createAsyncThunk(
+  'post/addPostAxios',
+  async (postData, { getState, dispatch }) => {
+    dispatch(setLoading(true));
+    const _image = getState().image.preview;
+    const _userid = getState().user.user_info.userid;
+    const url = await Storage.uploadFile(_image, _userid);
+    const res = await Postapi.addPost({ ...postData, imageUrl: url });
+    console.log(res);
+    // return { ...postData, boardId: res.boardId, imageUrl: url };
+    return { ...postData, boardId: res.boardId, imageurl: url };
+  }
+);
+
+export const updatePostAxios = createAsyncThunk(
+  'post/updatePostAxios',
+  async ({ boardId, postData, navigate }, { getState, dispatch }) => {
     const _image = getState().image.preview;
     const _userid = getState().user.user_info.userid;
     if (_image !== postData.imageurl) {
       const url = await Storage.uploadFile(_image, _userid);
-      await FSapi.updatePost({ ...postData, imageurl: url });
-      return { ...postData, imageurl: url };
+      const result = await Postapi.editPost({
+        boardId,
+        postData: { ...postData, imageurl: url },
+        navigate,
+      });
+      if (result) {
+        return { postData: { ...postData, imageurl: url }, boardId, dispatch };
+      }
     } else {
-      await FSapi.updatePost(postData);
-      return postData;
+      await Postapi.editPost({ boardId, postData, navigate });
+      return { postData, boardId, dispatch };
     }
   }
 );
 
-export const deletePostFB = createAsyncThunk(
-  'post/deletePostFB',
-  async boardId => {
-    await FSapi.deletePost(boardId);
+export const deletePostAxios = createAsyncThunk(
+  'post/deletePostAxios',
+  async ({ username, boardId, navigate }) => {
+    await Postapi.deletePost({ username, boardId, navigate });
     return boardId;
   }
 );
 
-export const postLikeFB = createAsyncThunk(
-  'post/postLikeFB',
-  async postData => {
-    await FSapi.updatePost(postData);
-    return postData;
+export const postLikeAxios = createAsyncThunk(
+  'post/postLikeAxios',
+  async ({ userid, boardId, newLike, updatedCount }) => {
+    return {
+      result: await Postapi.postLike({ userid, boardId }),
+      newLike,
+      updatedCount,
+      boardId,
+    };
   }
 );
 
-export const postLikeCancelFB = createAsyncThunk(
-  'post/postLikeCancelFB',
-  async postData => {
-    await FSapi.updatePost(postData);
-    return postData;
+export const postLikeCancelAxios = createAsyncThunk(
+  'post/postLikeCancelAxios',
+  async ({ userid, boardId, newLike, updatedCount }) => {
+    console.log({
+      result: await Postapi.postLikeCancel({ userid, boardId }),
+      newLike,
+      updatedCount,
+      boardId,
+    });
+    return {
+      result: await Postapi.postLikeCancel({ userid, boardId }),
+      newLike,
+      updatedCount,
+      boardId,
+    };
   }
 );
 
@@ -81,12 +116,7 @@ export const postSlice = createSlice({
     },
     setPost: (state, action) => {
       const postlist = action.payload;
-      if (postlist.length === state.paging.size + 1) {
-        postlist.pop();
-      } else {
-        state.paging.load = false;
-      }
-      state.data = [...state.data, ...postlist];
+      state.data = postlist;
     },
     setNewPaging: (state, action) => {
       state.data = initialState.data;
@@ -95,39 +125,55 @@ export const postSlice = createSlice({
     },
   },
   extraReducers: {
-    [getPostFB.fulfilled]: (state, action) => {
-      state.paging.next = action.payload.lastVisible;
+    [getPostAxios.fulfilled]: (state, action) => {
+      // state.paging.next = action.payload.lastVisible;
       state.is_loading = false;
     },
-    [addPostFB.fulfilled]: (state, action) => {
-      state.data = [action.payload].concat(state.data);
+    [getOnePostAxios.fulfilled]: (state, action) => {
+      state.is_loading = false;
     },
-    [updatePostFB.fulfilled]: (state, action) => {
-      state.data = state.data.map(post => {
-        if (post.boardId === action.payload.boardId) {
-          return action.payload;
+    [addPostAxios.fulfilled]: (state, action) => {
+      state.data = [action.payload].concat(state.data);
+      state.is_loading = false;
+    },
+    [updatePostAxios.fulfilled]: (state, action) => {
+      const { postData, boardId } = action.payload;
+      const updated = state.data.map(post => {
+        if (post.boardId === boardId) {
+          return {
+            ...post,
+            imageurl: postData.imageUrl,
+            content: postData.content,
+            grid: postData.grid,
+          };
         }
         return post;
       });
+      state.data = updated;
+      action.payload.dispatch(setOnePost(updated));
     },
-    [deletePostFB.fulfilled]: (state, action) => {
+    [deletePostAxios.fulfilled]: (state, action) => {
       state.data = state.data.filter(post => post.boardId !== action.payload);
     },
-    [postLikeFB.fulfilled]: (state, action) => {
-      state.data = state.data.map(post => {
-        if (post.boardId === action.payload.boardId) {
-          return action.payload;
-        }
-        return post;
-      });
+    [postLikeAxios.fulfilled]: (state, action) => {
+      const { result, newLike, updatedCount, boardId } = action.payload;
+      state.data =
+        result &&
+        state.data.map(card => {
+          if (card.boardId === boardId) {
+            return { ...card, likes: newLike, likeCount: updatedCount };
+          } else return card;
+        });
     },
-    [postLikeCancelFB.fulfilled]: (state, action) => {
-      state.data = state.data.map(post => {
-        if (post.boardId === action.payload.boardId) {
-          return action.payload;
-        }
-        return post;
-      });
+    [postLikeCancelAxios.fulfilled]: (state, action) => {
+      const { result, newLike, updatedCount, boardId } = action.payload;
+      state.data =
+        result &&
+        state.data.map(card => {
+          if (card.boardId === boardId) {
+            return { ...card, likes: newLike, likeCount: updatedCount };
+          } else return card;
+        });
     },
   },
 });

@@ -8,20 +8,19 @@ import Detail from './pages/Detail';
 import Login from './pages/Login';
 import Main from './pages/Main';
 import Register from './pages/Register';
-import { getPostFB, setNewPaging } from './redux/modules/post';
-import { getUserFB } from './redux/modules/user';
+import { getPostAxios, getPostFB, setNewPaging } from './redux/modules/post';
+import { getUser } from './redux/modules/user';
 
 function App() {
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.user.is_login);
-  const sessionKey = `firebase:authUser:${process.env.REACT_APP_API_KEY}:[DEFAULT]`;
-  const isSession = sessionStorage.getItem(sessionKey) ? true : false;
+  const isToken = sessionStorage.getItem('token') ? true : false;
 
   useEffect(() => {
-    isSession && dispatch(getUserFB());
+    isToken && dispatch(getUser());
     dispatch(setNewPaging());
-    dispatch(getPostFB());
-  }, [isLogin, isSession]);
+    dispatch(getPostAxios());
+  }, [isLogin, isToken]);
 
   return (
     <>

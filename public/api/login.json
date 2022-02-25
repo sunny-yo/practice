@@ -1,0 +1,10 @@
+{
+  "result": "success / fail",
+  "msg": "로그인: 성공",
+  "userData": {
+    "userId": "1",
+    "username": "sunny",
+    "email": "email",
+    "token": "asdf1234asdf1234"
+  }
+}

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { FaHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { postLikeCancelFB, postLikeFB } from '../redux/modules/post';
+import { postLikeAxios, postLikeCancelAxios } from '../redux/modules/post';
+import { setOnePostLike } from '../redux/modules/postdetail';
 
-const PostCardFooter = ({ card, likeCount, likes, boardId }) => {
+const PostCardFooter = ({ likeCount, likes, boardId }) => {
   const isLogin = useSelector(state => state.user.is_login);
   const userid = useSelector(state => state.user.user_info.userid);
   const dispatch = useDispatch();
@@ -12,7 +13,10 @@ const PostCardFooter = ({ card, likeCount, likes, boardId }) => {
 
   // 로그인한 유저가 게시글을 좋아요한 리스트에 있으면 onLike=true
   useEffect(() => {
-    if (likes.filter(user => user.userid === userid).length > 0) {
+    if (
+      likes.length > 0 &&
+      likes.filter(user => user.userid === userid).length > 0
+    ) {
       setOnLike(true);
     }
   }, [isLogin]);
@@ -29,14 +33,8 @@ const PostCardFooter = ({ card, likeCount, likes, boardId }) => {
       setOnLike(true);
       const newLike = likes.concat([{ userid: userid }]);
       const updatedCount = parseInt(likeCount) + 1;
-      dispatch(
-        postLikeFB({
-          ...card,
-          boardId: boardId,
-          likes: newLike,
-          likeCount: updatedCount,
-        })
-      );
+      dispatch(setOnePostLike({ newLike, updatedCount }));
+      dispatch(postLikeAxios({ userid, boardId, newLike, updatedCount }));
     } else if (e.currentTarget.id === 'like-button' && onLike) {
       e.currentTarget.classList.toggle('like');
       e.stopPropagation();
@@ -45,14 +43,8 @@ const PostCardFooter = ({ card, likeCount, likes, boardId }) => {
         return user.userid !== userid;
       });
       const updatedCount = parseInt(likeCount) - 1;
-      dispatch(
-        postLikeCancelFB({
-          ...card,
-          boardId: boardId,
-          likes: newLike,
-          likeCount: updatedCount,
-        })
-      );
+      dispatch(setOnePostLike({ newLike, updatedCount }));
+      dispatch(postLikeCancelAxios({ userid, boardId, newLike, updatedCount }));
     }
   };
 

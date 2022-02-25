@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../elements/Button';
-import { loginFB } from '../redux/modules/user';
+import { signinAxios } from '../redux/modules/user';
 import { checkEmail } from '../shared/functions';
 
-const LoginForm = (props) => {
+const LoginForm = props => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const emailRef = useRef();
   const pwRef = useRef();
 
-  const onLogin = (e) => {
+  const onLogin = e => {
     e.preventDefault();
 
     const email = emailRef.current.value;
@@ -34,19 +34,18 @@ const LoginForm = (props) => {
       password: pw,
     };
 
-    dispatch(loginFB(loginData));
-    navigate('/', { replace: true }); // 성공일 때
+    dispatch(signinAxios({ loginData, navigate }));
   };
 
   return (
     <Form onSubmit={onLogin}>
       <Box>
-        <Label htmlFor="이메일">이메일</Label>
-        <Input ref={emailRef} type="text" placeholder="이메일을 입력하세요" />
+        <Label htmlFor='이메일'>이메일</Label>
+        <Input ref={emailRef} type='text' placeholder='이메일을 입력하세요' />
       </Box>
       <Box>
-        <Label htmlFor="비밀번호">비밀번호</Label>
-        <Input ref={pwRef} type="text" placeholder="비밀번호를 입력하세요" />
+        <Label htmlFor='비밀번호'>비밀번호</Label>
+        <Input ref={pwRef} type='text' placeholder='비밀번호를 입력하세요' />
       </Box>
       <Button name={'로그인하기'} />
     </Form>

@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getPostFB, setNewPaging } from '../redux/modules/post';
-import { logoutFB } from '../redux/modules/user';
+import { getPostAxios, getPostFB, setNewPaging } from '../redux/modules/post';
+import { logoutAxios, logoutFB } from '../redux/modules/user';
 
 const Navbar = ({ isLogin }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Navbar = ({ isLogin }) => {
 
   const goToMain = () => {
     dispatch(setNewPaging());
-    dispatch(getPostFB());
+    dispatch(getPostAxios());
     navigate('/', { replace: true });
   };
 
@@ -24,8 +24,7 @@ const Navbar = ({ isLogin }) => {
   };
 
   const _logout = () => {
-    dispatch(logoutFB());
-    navigate('/', { replace: true });
+    dispatch(logoutAxios({ navigate }));
   };
 
   if (isLogin) {

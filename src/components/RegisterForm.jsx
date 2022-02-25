@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../elements/Button';
-import { sighupFB } from '../redux/modules/user';
+import { sighupAxios, sighupFB } from '../redux/modules/user';
 import { checkEmail, checkNickname, checkPW } from '../shared/functions';
 
 const RegisterForm = props => {
@@ -51,8 +51,8 @@ const RegisterForm = props => {
       passwordCheck: pwCheck,
     };
 
-    dispatch(sighupFB(registerData));
-    navigate('/', { replace: true });
+    dispatch(sighupAxios({ registerData, navigate }));
+    // navigate('/', { replace: true });
   };
 
   return (

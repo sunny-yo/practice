@@ -4,7 +4,7 @@ import PostCard from '../components/PostCard';
 import { FaPlusCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getPostFB } from '../redux/modules/post';
+import { getPostAxios, getPostFB } from '../redux/modules/post';
 import InfinityScroll from '../components/InfinityScroll';
 
 const Main = ({ isLogin }) => {
@@ -22,22 +22,22 @@ const Main = ({ isLogin }) => {
   };
 
   return (
-    <InfinityScroll
-      callNext={() => {
-        dispatch(getPostFB());
-      }}
-      is_next={paging.load ? true : false}
-      loading={is_loading}
-    >
-      <ListBox>
-        {data.map(card => (
-          <PostCard key={card.boardId} card={card} />
-        ))}
-        <AddButton onClick={addPost}>
-          <FaPlusCircle />
-        </AddButton>
-      </ListBox>
-    </InfinityScroll>
+    // <InfinityScroll
+    //   callNext={() => {
+    //     dispatch(getPostAxios());
+    //   }}
+    //   is_next={paging.load ? true : false}
+    //   loading={is_loading}
+    // >
+    <ListBox>
+      {data.map(card => (
+        <PostCard key={card.boardId} card={card} />
+      ))}
+      <AddButton onClick={addPost}>
+        <FaPlusCircle />
+      </AddButton>
+    </ListBox>
+    // </InfinityScroll>
   );
 };
 

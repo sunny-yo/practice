@@ -1,0 +1,14 @@
+{
+  "result": "success",
+  "msg": "1번 게시글 상세 조회: 성공",
+  "data": {
+    "boardId": "1",
+    "creater": "bob",
+    "content": "두번째 게시글 입니다",
+    "imageurl": "https://cdn.pixabay.com/photo/2016/11/18/23/41/sun-1837376_960_720.png",
+    "grid": "row",
+    "likeCount": 0,
+    "createdAt": "2022-02-20 18:00:00",
+    "likes": []
+  }
+}

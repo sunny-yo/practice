@@ -1,31 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import PostCard from '../components/PostCard';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import { deletePostFB } from '../redux/modules/post';
+import {
+  deletePostAxios,
+  deletePostFB,
+  getOnePostAxios,
+} from '../redux/modules/post';
 
 const Detail = props => {
-  const cards = useSelector(state => state.post.data);
+  const thisCard = useSelector(state => state.postdetail.post);
   const param = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.user_info.username);
+  console.log(thisCard);
 
-  // 원래는 param.postId=boardId 여서
-  // 상세페이지 조회 api 보내고
-  // 데이터 받아서 PostCard 에 넣기
-  const thisCard = cards.filter(card => card.boardId === param.postId)[0];
+  useEffect(() => {
+    dispatch(getOnePostAxios(param.postId));
+  }, []);
 
   const goToEdit = () => {
-    navigate(`/edit/${param.postId}`, { state: thisCard });
+    navigate(`/edit/${thisCard.boardId}`, { state: thisCard });
   };
 
   const handleDelete = () => {
-    dispatch(deletePostFB(param.postId));
-    navigate('/', { replace: true });
+    dispatch(
+      deletePostAxios({ username, boardId: thisCard.boardId, navigate })
+    );
   };
 
   return (
