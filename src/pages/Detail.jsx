@@ -17,7 +17,6 @@ const Detail = props => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const username = useSelector(state => state.user.user_info.username);
-  console.log(thisCard);
 
   useEffect(() => {
     dispatch(getOnePostAxios(param.postId));

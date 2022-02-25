@@ -2,15 +2,14 @@ import axios from 'axios';
 
 class UserApi {
   constructor() {
-    this.base = 'http://localhost:3000'; // 서버 ip 주소로 바꾸기
+    // this.base = 'http://localhost:3000'; // 서버 ip 주소로 바꾸기
+    this.base = process.env.REACT_APP_BE_IP_LYW;
   }
 
   async signUp({ registerData, navigate }) {
     const sighupConfig = {
-      // method: 'post',
-      method: 'get',
-      // url: `${this.base}/api/register`,
-      url: `${this.base}/api/register.json`,
+      method: 'post',
+      url: `${this.base}/api/register`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -32,10 +31,8 @@ class UserApi {
 
   async signIn({ loginData, navigate }) {
     const signinConfig = {
-      // method: 'post',
-      method: 'get',
-      // url: `${this.base}/api/login`,
-      url: `${this.base}/api/login.json`,
+      method: 'post',
+      url: `${this.base}/api/login`,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -58,10 +55,8 @@ class UserApi {
 
   async signOut({ navigate }) {
     const signoutConfig = {
-      // method: 'post',
-      method: 'get',
-      // url: `${this.base}/api/logout`,
-      url: `${this.base}/api/logout.json`,
+      method: 'post',
+      url: `${this.base}/api/logout`,
       headers: {
         'X-AUTH-TOKEN': sessionStorage.getItem('token'),
       },

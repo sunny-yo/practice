@@ -35,9 +35,12 @@ export const signinAxios = createAsyncThunk(
 export const logoutAxios = createAsyncThunk(
   'user/logoutAxios',
   async ({ navigate }, { dispatch }) => {
-    const result = await Userapi.signOut({ navigate });
-    result && dispatch(deleteUserFromSession());
-    return result;
+    // const result = await Userapi.signOut({ navigate });
+    // result && dispatch(deleteUserFromSession());
+    // return result;
+    dispatch(deleteUserFromSession());
+    navigate('/', { replace: true });
+    return true;
   }
 );
 
@@ -76,7 +79,7 @@ export const userSlice = createSlice({
     },
     [logoutAxios.fulfilled]: (state, action) => {
       if (action.payload) {
-        state.user_info = initialState;
+        state.user_info = initialState.user_info;
         state.is_login = false;
       }
     },

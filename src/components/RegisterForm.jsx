@@ -52,7 +52,6 @@ const RegisterForm = props => {
     };
 
     dispatch(sighupAxios({ registerData, navigate }));
-    // navigate('/', { replace: true });
   };
 
   return (

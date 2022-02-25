@@ -5,12 +5,7 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import GridButton from '../components/GridButton';
 import Button from '../elements/Button';
-import {
-  addPostAxios,
-  addPostFB,
-  updatePostAxios,
-  updatePostFB,
-} from '../redux/modules/post';
+import { addPostAxios, updatePostAxios } from '../redux/modules/post';
 import { setPreview } from '../redux/modules/image';
 import { resetGrid, setGrid } from '../redux/modules/grid';
 
@@ -29,7 +24,7 @@ const AddPost = () => {
   useEffect(() => {
     if (isEdit) {
       dispatch(setGrid(location.state.grid));
-      dispatch(setPreview(location.state.imageurl));
+      dispatch(setPreview(location.state.imageUrl));
       contentRef.current.value = location.state.content;
     }
   }, []);
@@ -59,25 +54,31 @@ const AddPost = () => {
       content: content,
       imageUrl: null,
       grid: gridStyle,
-      likeCount: '0', //
-      createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'), //
-      likes: [], //
+      // likeCount: '0', //
+      // createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'), //
+      // likes: [], //
     };
 
-    const editedPost = {
-      ...location.state, //
-      username: userInfo.username,
-      imageUrl: location.state.imageurl,
-      content: content,
-      grid: gridStyle,
-    };
+    // const editedPost = {
+    //   // ...location.state, //
+    //   username: userInfo.username,
+    //   imageUrl: location.state.imageurl,
+    //   content: content,
+    //   grid: gridStyle,
+    // };
 
     !isEdit
       ? dispatch(addPostAxios({ postData: newPost, navigate }))
       : dispatch(
           updatePostAxios({
             boardId: param.postId,
-            postData: editedPost,
+            postData: {
+              // ...location.state, //
+              username: userInfo.username,
+              imageUrl: location.state.imageurl,
+              content: content,
+              grid: gridStyle,
+            },
             navigate,
           })
         );

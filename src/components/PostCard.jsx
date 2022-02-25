@@ -14,7 +14,7 @@ const PostCard = memo(({ card }) => {
     boardId,
     creater,
     content,
-    imageurl,
+    imageUrl,
     grid,
     likeCount,
     createdAt,
@@ -31,7 +31,7 @@ const PostCard = memo(({ card }) => {
     <CardBox onClick={goToDetail} className={isDetail ? 'detail' : 'main'}>
       <StyleBox>
         <PostCardHeader creater={creater} date={createdAt} />
-        <PostCardContent grid={grid} content={content} image={imageurl} />
+        <PostCardContent grid={grid} content={content} image={imageUrl} />
         <PostCardFooter
           card={card}
           likeCount={likeCount}
