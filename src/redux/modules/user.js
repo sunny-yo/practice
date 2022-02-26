@@ -55,7 +55,7 @@ export const userSlice = createSlice({
     },
     getUser: (state, action) => {
       state.user_info.username = sessionStorage.getItem('username');
-      state.user_info.userid = sessionStorage.getItem('userId');
+      state.user_info.userid = parseInt(sessionStorage.getItem('userId'));
       state.is_login = true;
     },
     deleteUserFromSession: (state, action) => {

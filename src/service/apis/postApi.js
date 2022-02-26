@@ -5,7 +5,8 @@ import { logoutAxios } from '../../redux/modules/user';
 class PostApi {
   constructor() {
     // this.base = 'http://localhost:3000';
-    this.base = process.env.REACT_APP_BE_IP_LYW;
+    // this.base = process.env.REACT_APP_BE_IP_LYW;
+    this.base = 'http://13.209.41.157';
   }
 
   async getPosts() {
@@ -36,6 +37,7 @@ class PostApi {
       },
       data: JSON.stringify(postData),
     };
+    console.log(postData);
 
     return axios(addpostConfig)
       .then(res => {
@@ -48,6 +50,7 @@ class PostApi {
         alert('게시글 등록이 완료되지 않았습니다. 다시 시도해보세요.');
         console.log(err);
         console.log(err.message);
+        console.log(err.response);
       });
   }
 
@@ -119,6 +122,7 @@ class PostApi {
         // 다시 불러오기..? 아니면 에러페이지로 이동..?
         console.log(err);
         console.log(err.message);
+        console.log(err.response);
       });
   }
 
