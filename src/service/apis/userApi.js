@@ -4,7 +4,7 @@ class UserApi {
   constructor() {
     // this.base = 'http://localhost:3000'; // 서버 ip 주소로 바꾸기
     // this.base = process.env.REACT_APP_BE_IP_LYW;
-    this.base = 'http://13.209.41.157';
+    this.base = process.env.REACT_APP_BE_IP_JYH;
   }
 
   async signUp({ registerData, navigate }) {
@@ -22,7 +22,9 @@ class UserApi {
         console.log(res);
         alert(res.data.msg);
         // alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
-        navigate('/login', { replace: true });
+        if (res.data.result === 'success') {
+          navigate('/', { replace: true });
+        }
         return res.data;
       })
       .catch(err => {
@@ -45,9 +47,11 @@ class UserApi {
     return axios(signinConfig)
       .then(res => {
         console.log(res);
-        // alert(res.data.msg);
-        alert('로그인에 성공했습니다. 메인 페이지로 이동합니다.');
-        navigate('/', { replace: true });
+        alert(res.data.msg);
+        // alert('로그인에 성공했습니다. 메인 페이지로 이동합니다.');
+        if (res.data.result === 'success') {
+          navigate('/', { replace: true });
+        }
         return res.data;
       })
       .catch(err => {

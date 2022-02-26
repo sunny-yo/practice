@@ -6,7 +6,7 @@ class PostApi {
   constructor() {
     // this.base = 'http://localhost:3000';
     // this.base = process.env.REACT_APP_BE_IP_LYW;
-    this.base = 'http://13.209.41.157';
+    this.base = process.env.REACT_APP_BE_IP_JYH;
   }
 
   async getPosts() {
@@ -42,8 +42,11 @@ class PostApi {
     return axios(addpostConfig)
       .then(res => {
         console.log(res);
-        alert('게시글 등록이 완료되었습니다.');
-        navigate(`/post/${res.data.boardId}`, { replace: true });
+        // alert('게시글 등록이 완료되었습니다.');
+        alert(res.data.msg);
+        if (res.data.result === 'success') {
+          navigate(`/post/${res.data.boardId}`, { replace: true });
+        }
         return res.data;
       })
       .catch(err => {
@@ -68,8 +71,11 @@ class PostApi {
     return axios(deletepostConfig)
       .then(res => {
         console.log(res);
-        alert('해당 게시글이 삭제되었습니다');
-        navigate('/', { replace: true });
+        // alert('해당 게시글이 삭제되었습니다');
+        alert(res.data.msg);
+        if (res.data.result === 'success') {
+          navigate('/', { replace: true });
+        }
         return res.data;
       })
       .catch(err => {
@@ -92,8 +98,11 @@ class PostApi {
     return axios(editpostConfig)
       .then(res => {
         console.log(res);
-        alert('게시글 수정이 완료되었습니다.');
-        navigate(`/post/${boardId}`);
+        // alert('게시글 수정이 완료되었습니다.');
+        alert(res.data.msg);
+        if (res.data.result === 'success') {
+          navigate(`/post/${boardId}`);
+        }
         return true;
       })
       .catch(err => {
@@ -141,7 +150,8 @@ class PostApi {
     return axios(postlikeConfig)
       .then(res => {
         console.log(res);
-        alert('좋아요 성공');
+        // alert('좋아요 성공');
+        alert(res.data.msg);
         return true;
       })
       .catch(err => {
@@ -170,7 +180,8 @@ class PostApi {
 
     return axios(postlikecancelConfig)
       .then(res => {
-        alert('좋아요 취소 성공');
+        // alert('좋아요 취소 성공');
+        alert(res.data.msg);
         console.log(res);
         return true;
       })
