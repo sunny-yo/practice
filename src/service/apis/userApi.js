@@ -4,7 +4,8 @@ class UserApi {
   constructor() {
     // this.base = 'http://localhost:3000'; // 서버 ip 주소로 바꾸기
     // this.base = process.env.REACT_APP_BE_IP_LYW;
-    this.base = process.env.REACT_APP_BE_IP_JYH;
+    // this.base = process.env.REACT_APP_BE_IP_JYH;
+    this.base = process.env.REACT_APP_BE_IP_KHS;
   }
 
   async signUp({ registerData, navigate }) {

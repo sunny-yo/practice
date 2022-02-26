@@ -6,7 +6,8 @@ class PostApi {
   constructor() {
     // this.base = 'http://localhost:3000';
     // this.base = process.env.REACT_APP_BE_IP_LYW;
-    this.base = process.env.REACT_APP_BE_IP_JYH;
+    // this.base = process.env.REACT_APP_BE_IP_JYH;
+    this.base = process.env.REACT_APP_BE_IP_KHS;
   }
 
   async getPosts() {
@@ -37,7 +38,6 @@ class PostApi {
       },
       data: JSON.stringify(postData),
     };
-    console.log(postData);
 
     return axios(addpostConfig)
       .then(res => {
@@ -124,7 +124,7 @@ class PostApi {
     return axios(getonepostConfig)
       .then(res => {
         console.log(res);
-        dispatch(setOnePost(res.data.boardResponseDto));
+        dispatch(setOnePost(res.data.data));
         return res.data;
       })
       .catch(err => {

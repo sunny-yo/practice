@@ -19,7 +19,7 @@ export const getPostAxios = createAsyncThunk(
   async (_, { dispatch }) => {
     dispatch(setLoading(true));
     const resp = await Postapi.getPosts();
-    dispatch(setPost(resp.boardResponseDtos));
+    dispatch(setPost(resp.data));
     return resp;
   }
 );
