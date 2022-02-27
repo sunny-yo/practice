@@ -14,7 +14,6 @@ class PostApi {
       url: `${this.base}/api/board?page=${page}&size=${size}&sortBy=${sortBy}`,
       headers: {},
     };
-    console.log(getpostConfig);
 
     return axios(getpostConfig)
       .then(res => {

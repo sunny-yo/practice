@@ -89,18 +89,18 @@ const AddPost = () => {
     <>
       <GridButton grid={gridStyle} />
       <PostForm onSubmit={addNewPost}>
-        <img
+        <Img
           src={preview ? preview : 'http://via.placeholder.com/400x300'}
           alt=''
         />
-        <textarea
+        <TextBox
           ref={contentRef}
           name='content'
           cols='30'
           rows='10'
           placeholder='게시글 작성'
           autoFocus
-        ></textarea>
+        ></TextBox>
         <input ref={fileRef} onChange={selectPhoto} type='file' />
         <Button name={param.postId ? '게시글 수정' : '게시글 작성'} />
       </PostForm>
@@ -112,6 +112,18 @@ const PostForm = styled.form`
   margin-top: 2em;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const Img = styled.img`
+  display: block;
+  width: 50%;
+  height: auto;
+`;
+
+const TextBox = styled.textarea`
+  display: block;
   width: 100%;
 `;
 

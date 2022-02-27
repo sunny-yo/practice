@@ -10,7 +10,7 @@ const Postapi = new PostApi();
 
 const initialState = {
   data: [],
-  paging: { load: true, size: 10, page: 1, sortBy: 'createdAt' },
+  paging: { load: true, size: 6, page: 1, sortBy: 'createdAt' },
   is_loading: false,
 };
 
@@ -19,7 +19,6 @@ export const getPostAxios = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     dispatch(setLoading(true));
     const { page, size, sortBy } = getState().post.paging;
-    console.log(page, size, sortBy);
     const resp = await Postapi.getPosts({ page, size, sortBy });
     dispatch(setPost(resp.boardResponseDtos));
     return resp;
@@ -121,13 +120,8 @@ export const postSlice = createSlice({
       state.is_loading = action.payload;
     },
     setPost: (state, action) => {
-      if (action.payload.length < 1) {
-        state.paging.load = false;
-        return;
-      } else {
-        const postlist = action.payload;
-        state.data = state.data.concat(postlist);
-      }
+      const postlist = action.payload;
+      state.data = state.data.concat(postlist);
     },
     setNewPaging: (state, action) => {
       state.data = initialState.data;
@@ -138,7 +132,7 @@ export const postSlice = createSlice({
   },
   extraReducers: {
     [getPostAxios.fulfilled]: (state, action) => {
-      // state.paging.next = action.payload.isLast
+      state.paging.load = !action.payload.last;
       state.paging.page += 1;
       state.is_loading = false;
     },

@@ -45,7 +45,11 @@ const LoginForm = props => {
       </Box>
       <Box>
         <Label htmlFor='비밀번호'>비밀번호</Label>
-        <Input ref={pwRef} type='text' placeholder='비밀번호를 입력하세요' />
+        <Input
+          ref={pwRef}
+          type='password'
+          placeholder='비밀번호를 입력하세요'
+        />
       </Box>
       <Button name={'로그인하기'} />
     </Form>

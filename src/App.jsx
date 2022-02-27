@@ -18,8 +18,6 @@ function App() {
   const isLogin = useSelector(state => state.user.is_login);
   const isToken = sessionStorage.getItem('token') ? true : false;
 
-  console.log(isLoading);
-
   useEffect(() => {
     isToken && dispatch(getUser());
     dispatch(setNewPaging());
