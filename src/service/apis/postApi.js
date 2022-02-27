@@ -8,12 +8,13 @@ class PostApi {
     this.base = process.env.REACT_APP_BE_IP_LYW;
   }
 
-  async getPosts() {
+  async getPosts({ page, size, sortBy }) {
     const getpostConfig = {
       method: 'get',
-      url: `${this.base}/api/board`,
+      url: `${this.base}/api/board?page=${page}&size=${size}&sortBy=${sortBy}`,
       headers: {},
     };
+    console.log(getpostConfig);
 
     return axios(getpostConfig)
       .then(res => {

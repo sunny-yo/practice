@@ -26,7 +26,7 @@ class UserApi {
       })
       .catch(err => {
         console.log(err);
-        console.log(err.message);
+        console.log(err.response);
         alert(err.response.data.msg);
       });
   }
@@ -44,15 +44,15 @@ class UserApi {
     return axios(signinConfig)
       .then(res => {
         console.log(res);
-        // alert(res.data.msg);
-        alert('로그인에 성공했습니다. 메인 페이지로 이동합니다.');
+        alert(res.data.msg);
+        // alert('로그인에 성공했습니다. 메인 페이지로 이동합니다.');
         navigate('/', { replace: true });
         return res.data;
       })
       .catch(err => {
         alert(err.response.data.msg);
         console.log(err);
-        console.log(err.messages);
+        console.log(err.response);
       });
   }
 
@@ -74,7 +74,7 @@ class UserApi {
       })
       .catch(err => {
         console.log(err);
-        console.log(err.messages);
+        console.log(err.response);
         alert(err.response.data.msg);
         return false;
       });

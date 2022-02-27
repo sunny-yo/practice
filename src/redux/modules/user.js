@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import UserApi from '../../service/apis/userApi';
-import FirebaseAuth from '../../service/firebase/firebaseAuth';
 
-const FBapi = new FirebaseAuth();
 const Userapi = new UserApi();
 
 const initialState = {
@@ -16,8 +14,7 @@ const initialState = {
 export const sighupAxios = createAsyncThunk(
   'user/sighupAxios',
   async ({ registerData, navigate }) => {
-    const sighupResult = await Userapi.signUp({ registerData, navigate });
-    return sighupResult;
+    await Userapi.signUp({ registerData, navigate });
   }
 );
 
@@ -66,9 +63,7 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [sighupAxios.fulfilled]: (state, action) => {
-      // state.user_info = action.payload.user_info;
-      // state.is_login = action.payload.is_login;
-      console.log(action.payload);
+      state = state;
     },
     [signinAxios.fulfilled]: (state, action) => {
       state.user_info = {
