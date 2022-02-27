@@ -121,7 +121,7 @@ export const postSlice = createSlice({
     },
     setPost: (state, action) => {
       const postlist = action.payload;
-      state.data = state.data.concat(postlist);
+      state.data = [...state.data, ...postlist];
     },
     setNewPaging: (state, action) => {
       state.data = initialState.data;

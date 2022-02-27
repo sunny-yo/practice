@@ -1,43 +1,27 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import Spinner from '../elements/Spinner';
 import _ from 'lodash';
 
 const InfinityScroll = props => {
   const { children, callNext, is_next, loading } = props;
-
-  const _handleScroll = _.debounce(() => {
-    if (loading) return;
-    const { innerHeight } = window;
-    const { scrollHeight } = document.body;
-
-    const scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-
-    if (scrollHeight - innerHeight - scrollTop < 200) {
-      if (loading) {
-        return;
-      }
-      callNext();
-    }
-  }, 300);
-
-  const handleScroll = useCallback(_handleScroll, [loading]);
+  const targetRef = useRef();
 
   useEffect(() => {
-    if (loading) return;
-    if (is_next) {
-      window.addEventListener('scroll', handleScroll);
-    } else {
-      window.removeEventListener('scroll', handleScroll);
-    }
+    if (loading || !is_next) return;
+    const observer = new IntersectionObserver(async entries => {
+      if (entries[0].isIntersecting) {
+        callNext();
+      }
+    });
+    observer.observe(targetRef.current);
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [is_next, loading]);
+    return () => observer.unobserve(targetRef.current);
+  }, [loading]);
 
   return (
     <>
       {children}
+      <div ref={targetRef}></div>
       {is_next && <Spinner />}
     </>
   );
