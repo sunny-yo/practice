@@ -2,15 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   post: {
-    boardId: '0',
-    creater: 'sunny',
-    content: '첫번째 게시글 입니다',
-    imageurl:
-      'https://cdn.pixabay.com/photo/2020/03/25/16/01/children-4967808_960_720.jpg',
-    grid: 'column',
-    likeCount: '2',
-    createdAt: '2022-02-19 18:00:00',
-    likes: [{ userid: '0' }, { userid: '1' }],
+    boardId: '',
+    creater: '',
+    content: '',
+    imageurl: '',
+    grid: '',
+    likeCount: '',
+    createdAt: '',
+    likes: [],
   },
 };
 

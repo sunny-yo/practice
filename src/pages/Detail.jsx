@@ -32,6 +32,8 @@ const Detail = props => {
     );
   };
 
+  console.log(thisCard);
+
   return (
     <>
       <PostCard card={thisCard} />
