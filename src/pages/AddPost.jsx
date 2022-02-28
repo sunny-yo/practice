@@ -27,6 +27,10 @@ const AddPost = () => {
       dispatch(setPreview(location.state.imageUrl));
       contentRef.current.value = location.state.content;
     }
+    return () => {
+      dispatch(setPreview(null));
+      dispatch(resetGrid());
+    };
   }, []);
 
   const selectPhoto = e => {
@@ -81,8 +85,6 @@ const AddPost = () => {
             navigate,
           })
         );
-    dispatch(setPreview(null));
-    dispatch(resetGrid());
   };
 
   return (
