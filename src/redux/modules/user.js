@@ -25,8 +25,9 @@ export const signinAxios = createAsyncThunk(
   'user/sighinAxios',
   async ({ loginData, navigate }, { dispatch }) => {
     const userData = await Userapi.signIn({ loginData, navigate });
+    console.log(userData);
     if (userData) {
-      dispatch(setUserToSession(userData.userData));
+      dispatch(setUserToSession(userData.data));
       return userData;
     }
   }

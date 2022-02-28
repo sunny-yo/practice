@@ -7,7 +7,8 @@ class PostApi {
     // this.base = 'http://localhost:3000';
     // this.base = process.env.REACT_APP_BE_IP_LYW;
     // this.base = process.env.REACT_APP_BE_IP_JYH;
-    this.base = process.env.REACT_APP_BE_IP_KHS;
+    // this.base = process.env.REACT_APP_BE_IP_KHS;
+    this.base = process.env.REACT_APP_BE_IP_LSS;
   }
 
   async getPosts() {
