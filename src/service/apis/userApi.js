@@ -2,9 +2,10 @@ import axios from 'axios';
 
 class UserApi {
   constructor() {
-    // this.base = 'http://localhost:3000'; // 서버 ip 주소로 바꾸기
     this.base = process.env.REACT_APP_BE_IP_LYW;
   }
+
+  getToken = () => sessionStorage.getItem('token');
 
   async signUp({ registerData, navigate }) {
     const sighupConfig = {
@@ -20,12 +21,10 @@ class UserApi {
       .then(res => {
         console.log(res);
         alert(res.data.msg);
-        // alert('회원가입에 성공했습니다. 로그인 페이지로 이동합니다.');
         navigate('/login', { replace: true });
         return res.data;
       })
       .catch(err => {
-        console.log(err);
         console.log(err.response);
         alert(err.response.data.msg);
       });
@@ -45,13 +44,11 @@ class UserApi {
       .then(res => {
         console.log(res);
         alert(res.data.msg);
-        // alert('로그인에 성공했습니다. 메인 페이지로 이동합니다.');
         navigate('/', { replace: true });
         return res.data;
       })
       .catch(err => {
         alert(err.response.data.msg);
-        console.log(err);
         console.log(err.response);
       });
   }
@@ -61,7 +58,7 @@ class UserApi {
       method: 'post',
       url: `${this.base}/api/logout`,
       headers: {
-        'X-AUTH-TOKEN': sessionStorage.getItem('token'),
+        'X-AUTH-TOKEN': this.getToken(),
       },
     };
 
@@ -73,7 +70,6 @@ class UserApi {
         return true;
       })
       .catch(err => {
-        console.log(err);
         console.log(err.response);
         alert(err.response.data.msg);
         return false;

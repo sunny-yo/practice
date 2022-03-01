@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import PostApi from '../../service/apis/postApi';
-import Firestore from '../../service/firebase/firestore';
 import FBstorage from '../../service/firebase/storage';
 import { setOnePost } from './postdetail';
 
-const FSapi = new Firestore();
 const Storage = new FBstorage();
 const Postapi = new PostApi();
 
@@ -30,7 +28,8 @@ export const getOnePostAxios = createAsyncThunk(
   async (boardId, { dispatch }) => {
     dispatch(setLoading(true));
     const res = await Postapi.getOnePost({ boardId, dispatch });
-    return res.data;
+    dispatch(setOnePost(res.boardResponseDto));
+    return res.boardResponseDto;
   }
 );
 
@@ -54,8 +53,6 @@ export const updatePostAxios = createAsyncThunk(
     dispatch(setLoading(true));
     const _image = getState().image.preview;
     const _userid = getState().user.user_info.userid;
-    console.log(postData.imageUrl);
-    console.log(_image);
     let result;
     if (postData.imageUrl === _image) {
       result = await Postapi.editPost({ boardId, postData, navigate });

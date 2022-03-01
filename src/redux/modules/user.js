@@ -32,9 +32,6 @@ export const signinAxios = createAsyncThunk(
 export const logoutAxios = createAsyncThunk(
   'user/logoutAxios',
   async ({ navigate }, { dispatch }) => {
-    // const result = await Userapi.signOut({ navigate });
-    // result && dispatch(deleteUserFromSession());
-    // return result;
     dispatch(deleteUserFromSession());
     navigate('/', { replace: true });
     return true;

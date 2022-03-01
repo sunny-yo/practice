@@ -46,20 +46,6 @@ const Navbar = ({ isLogin }) => {
       )}
     </Header>
   );
-  // }
-
-  //   return (
-  //     <Header>
-  //       <LogoBox onClick={goToMain}>
-  //         <LogoImg src='/img/logo.png' alt='logo' />
-  //         <Title>Magazine</Title>
-  //       </LogoBox>
-  //       <div className='buttons'>
-  //         <Button onClick={goToLogin}>로그인</Button>
-  //         <Button onClick={goToRegister}>회원가입</Button>
-  //       </div>
-  //     </Header>
-  //   );
 };
 
 const Header = styled.header`
@@ -68,7 +54,6 @@ const Header = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // background-color: lightgrey;
 `;
 
 const LogoBox = styled.div`
@@ -86,7 +71,7 @@ const LogoImg = styled.img`
 
 const Title = styled.h1`
   font-size: 1.7rem;
-  font-family: 'Redressed', cursive;
+  font-family: 'Verdana', sans-serif;
 `;
 
 const Button = styled.button`

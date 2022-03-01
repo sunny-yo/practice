@@ -4,9 +4,10 @@ import { logoutAxios } from '../../redux/modules/user';
 
 class PostApi {
   constructor() {
-    // this.base = 'http://localhost:3000';
     this.base = process.env.REACT_APP_BE_IP_LYW;
   }
+
+  getToken = () => sessionStorage.getItem('token');
 
   async getPosts({ page, size, sortBy }) {
     const getpostConfig = {
@@ -21,8 +22,7 @@ class PostApi {
         return res.data;
       })
       .catch(err => {
-        console.log(err);
-        console.log(err.messages);
+        console.log(err.response);
       });
   }
 
@@ -32,7 +32,7 @@ class PostApi {
       url: `${this.base}/api/board`,
       headers: {
         'Content-Type': 'application/json',
-        'X-AUTH-TOKEN': sessionStorage.getItem('token'),
+        'X-AUTH-TOKEN': this.getToken(),
       },
       data: JSON.stringify(postData),
     };
@@ -46,8 +46,7 @@ class PostApi {
       })
       .catch(err => {
         alert('게시글 등록이 완료되지 않았습니다. 다시 시도해보세요.');
-        console.log(err);
-        console.log(err.message);
+        console.log(err.response);
       });
   }
 
@@ -57,7 +56,7 @@ class PostApi {
       url: `${this.base}/api/board/${boardId}`,
       headers: {
         'Content-Type': 'application/json',
-        'X-AUTH-TOKEN': sessionStorage.getItem('token'),
+        'X-AUTH-TOKEN': this.getToken(),
       },
       data: JSON.stringify({ username: username }),
     };
@@ -70,8 +69,7 @@ class PostApi {
         return res.data;
       })
       .catch(err => {
-        console.log(err);
-        console.log(err.message);
+        console.log(err.response);
       });
   }
 
@@ -81,7 +79,7 @@ class PostApi {
       url: `${this.base}/api/board/${boardId}`,
       headers: {
         'Content-Type': 'application/json',
-        'X-AUTH-TOKEN': sessionStorage.getItem('token'),
+        'X-AUTH-TOKEN': this.getToken(),
       },
       data: JSON.stringify(postData),
     };
@@ -95,8 +93,6 @@ class PostApi {
       })
       .catch(err => {
         alert('게시글 수정이 완료되지 않았습니다. 다시 시도해주세요.');
-        console.log(err);
-        console.log(err.message);
         console.log(err.response);
         return false;
       });
@@ -106,19 +102,16 @@ class PostApi {
     const getonepostConfig = {
       method: 'get',
       url: `${this.base}/api/board/${boardId}`,
-      headers: { 'X-AUTH-TOKEN': sessionStorage.getItem('token') },
+      headers: { 'X-AUTH-TOKEN': this.getToken() },
     };
 
     return axios(getonepostConfig)
       .then(res => {
         console.log(res);
-        dispatch(setOnePost(res.data.boardResponseDto));
         return res.data;
       })
       .catch(err => {
-        // 다시 불러오기..? 아니면 에러페이지로 이동..?
-        console.log(err);
-        console.log(err.message);
+        console.log(err.response);
       });
   }
 
@@ -128,7 +121,7 @@ class PostApi {
       url: `${this.base}/api/board/${boardId}/like`,
       headers: {
         'Content-Type': 'application/json',
-        'X-AUTH-TOKEN': sessionStorage.getItem('token'),
+        'X-AUTH-TOKEN': this.getToken(),
       },
       data: JSON.stringify({ userId: userid }),
     };
@@ -142,8 +135,6 @@ class PostApi {
       })
       .catch(err => {
         alert('좋아요 실패');
-        console.log(err);
-        console.log(err.message);
         console.log(err.response);
         if (err.response.data.status === 403) {
           alert('로그인 시간이 만료되었어요. 다시 로그인해주세요.');
@@ -159,7 +150,7 @@ class PostApi {
       url: `${this.base}/api/board/${boardId}/like`,
       headers: {
         'Content-Type': 'application/json',
-        'X-AUTH-TOKEN': sessionStorage.getItem('token'),
+        'X-AUTH-TOKEN': this.getToken(),
       },
       data: JSON.stringify({ userId: userid }),
     };
@@ -172,8 +163,6 @@ class PostApi {
       })
       .catch(err => {
         alert('좋아요 취소 실패');
-        console.log(err);
-        console.log(err.message);
         console.log(err.response);
         if (err.response.data.status === 403) {
           alert('로그인 시간이 만료되었어요. 다시 로그인해주세요.');

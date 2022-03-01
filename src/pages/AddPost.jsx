@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
 import styled from 'styled-components';
 import GridButton from '../components/GridButton';
 import Button from '../elements/Button';
@@ -58,18 +57,7 @@ const AddPost = () => {
       content: content,
       imageUrl: null,
       grid: gridStyle,
-      // likeCount: '0', //
-      // createdAt: dayjs().format('YYYY-MM-DD HH:mm:ss'), //
-      // likes: [], //
     };
-
-    // const editedPost = {
-    //   // ...location.state, //
-    //   username: userInfo.username,
-    //   imageUrl: location.state.imageurl,
-    //   content: content,
-    //   grid: gridStyle,
-    // };
 
     !isEdit
       ? dispatch(addPostAxios({ postData: newPost, navigate }))

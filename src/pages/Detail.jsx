@@ -5,11 +5,7 @@ import styled from 'styled-components';
 import PostCard from '../components/PostCard';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
-import {
-  deletePostAxios,
-  deletePostFB,
-  getOnePostAxios,
-} from '../redux/modules/post';
+import { deletePostAxios, getOnePostAxios } from '../redux/modules/post';
 
 const Detail = props => {
   const thisCard = useSelector(state => state.postdetail.post);
@@ -31,8 +27,6 @@ const Detail = props => {
       deletePostAxios({ username, boardId: thisCard.boardId, navigate })
     );
   };
-
-  console.log(thisCard);
 
   return (
     <>
