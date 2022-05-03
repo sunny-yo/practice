@@ -1,0 +1,11 @@
+.habits {
+  width: 80%;
+  margin: 0 1rem;
+}
+
+.resetBtn {
+  font-size: 1.5rem;
+  color: aliceblue;
+  background-color: green;
+  margin-top: 1rem;
+}
