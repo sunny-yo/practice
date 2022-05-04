@@ -1,0 +1,14 @@
+{
+  "result": "success",
+  "msg": "2번 게시글 상세 조회: 성공",
+  "data": {
+    "boardId": "2",
+    "creater": "lilly",
+    "content": "세번째 게시글 입니다",
+    "imageurl": "https://cdn.pixabay.com/photo/2017/01/31/20/53/robot-2027195_960_720.png",
+    "grid": "row-reverse",
+    "likeCount": 1,
+    "createdAt": "2022-02-21 18:00:00",
+    "likes": [{ "userid": "0" }]
+  }
+}
